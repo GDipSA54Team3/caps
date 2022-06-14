@@ -35,4 +35,15 @@ public class Admin {
 	
 	@Column(nullable = false, length = 12)
 	private String email;
+
+	public Admin(String username, String password, String firstName, String lastName, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+	
+	
 }
