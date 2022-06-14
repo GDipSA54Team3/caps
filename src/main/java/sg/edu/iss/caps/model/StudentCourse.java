@@ -28,4 +28,14 @@ public class StudentCourse {
 	private String grade;
 	//private DateTime enrollmentDate;
 	private String courseStatus;
+	
+	public StudentCourse(Student student, Course course, String grade, String courseStatus) {
+		super();
+		this.student = student;
+		this.course = course;
+		this.grade = grade;
+		this.courseStatus = courseStatus;
+	}
+	
+	
 }

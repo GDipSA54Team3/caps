@@ -27,5 +27,14 @@ public class Course {
 	private List<Lecturer> lecturers;
 	
 	@OneToMany(mappedBy="course")
-	private List<StudentCourse> studentCourses; 
+	private List<StudentCourse> studentCourses;
+
+	public Course(String courseName, String courseDescription, int maxSize) {
+		super();
+		this.courseName = courseName;
+		this.courseDescription = courseDescription;
+		this.maxSize = maxSize;
+	} 
+	
+	
 }
