@@ -35,4 +35,15 @@ public class Lecturer {
 		joinColumns= @JoinColumn(name= "lecturer_Id"),
 		inverseJoinColumns= @JoinColumn(name="course_Id"))
 	private List<Course> courses;
+
+	public Lecturer(String username, String password, String firstName, String lastName, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+	
+	
 }
