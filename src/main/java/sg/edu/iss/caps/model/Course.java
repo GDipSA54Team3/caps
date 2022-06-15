@@ -3,6 +3,7 @@ package sg.edu.iss.caps.model;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,8 +18,13 @@ public class Course {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
+	@Column(nullable = false)
 	private String courseName;
+	
+	@Column(nullable = false)
 	private String courseDescription;
+	
+	@Column(nullable = false)
 	private int maxSize;
 	//private Date startDate;
 	//private Date endDate;
