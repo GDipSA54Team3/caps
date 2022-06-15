@@ -18,10 +18,19 @@ public class Student {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
+	@Column(nullable = false, length = 50)
 	private String username;
+	
+	@Column(nullable = false, length = 50)
 	private String password;
+	
+	@Column(nullable = false, length = 50)
 	private String firstName;
+	
+	@Column(nullable = false, length = 50)
 	private String lastName;
+	
+	@Column(nullable = false, length = 50)
 	private String email;
 	
 	@OneToMany(mappedBy="student")

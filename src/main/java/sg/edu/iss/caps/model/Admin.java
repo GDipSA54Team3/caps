@@ -1,7 +1,5 @@
 package sg.edu.iss.caps.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,19 +19,19 @@ public class Admin {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
-	@Column(nullable = false, length = 12)
+	@Column(nullable = false, length = 50)
 	private String username;
 	
-	@Column(nullable = false, length = 12)
+	@Column(nullable = false, length = 50)
 	private String password;
 	
-	@Column(nullable = false, length = 12)
+	@Column(nullable = false, length = 50)
 	private String firstName;
 	
-	@Column(nullable = false, length = 12)
+	@Column(nullable = false, length = 50)
 	private String lastName;
 	
-	@Column(nullable = false, length = 12)
+	@Column(nullable = false, length = 50)
 	private String email;
 
 	public Admin(String username, String password, String firstName, String lastName, String email) {
