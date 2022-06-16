@@ -1,0 +1,69 @@
+body {
+	margin: 0;
+}
+
+:root {
+  --main-color: #333333;
+  --accent-color: #f2f2f2;
+}
+
+.nav {
+	overflow: hidden;
+  	background-color: var(--main-color);
+  	position: fixed; /* Set the navbar to fixed position */
+  	top: 0; /* Position the navbar at the top of the page */
+  	width: 100%; /* Full width */
+  	z-index: 2;
+  	vertical-align:middle;
+}
+
+.nav a {
+	  float: left;
+	  display: block;
+	  color: var(--accent-color);
+	  text-align: center;
+	  padding: 14px 16px;
+	  text-decoration: none;
+}
+
+.sidenav {
+	  width: 12%; /* Set the width of the sidebar */
+	  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+	  z-index: 1; /* Stay on top */
+	  top: 0; /* Stay at the top */
+	  left: 0;
+	  background-color: #DDD;
+	  overflow-x: hidden; /* Disable horizontal scroll */
+	  padding-top: 5%;
+	  margin:0;
+	  height: 100%;
+}
+
+
+.sidenav a {
+	text-align:right;
+	  padding: 10px;
+	  text-decoration: none;
+	  font-size: 1em;
+	  color: #818181;
+	  display: block;
+}
+
+.sidenav a:hover{
+	background-color: #818181;
+	color: var(--accent-color);
+}
+
+.inside {
+	padding-left: 3%;
+	padding-top: 5%;
+}
+
+.login-form {
+	padding: 10px;
+}
+
+.login-form button{
+	margin-top: 10px;
+	width: 100%;
+}
