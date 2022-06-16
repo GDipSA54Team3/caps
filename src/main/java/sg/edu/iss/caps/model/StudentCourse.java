@@ -27,11 +27,11 @@ public class StudentCourse {
 	@ManyToOne
 	private Course course;
 	
-	private String grade;
+	private Grade grade;
 	//private DateTime enrollmentDate;
-	private String courseStatus;
+	private CourseStatus courseStatus;
 	
-	public StudentCourse(Student student, Course course, String grade, String courseStatus) {
+	public StudentCourse(Student student, Course course, Grade grade, CourseStatus courseStatus) {
 		super();
 		this.student = student;
 		this.course = course;
