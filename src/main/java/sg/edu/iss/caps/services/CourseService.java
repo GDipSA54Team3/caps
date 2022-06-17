@@ -23,7 +23,7 @@ public interface CourseService {
 	
 		List<Course >returnCourseByName(String name);
 
-		List<Course> getAllCourses();
+		//List<Course> getAllCourses();
 		
 
 }

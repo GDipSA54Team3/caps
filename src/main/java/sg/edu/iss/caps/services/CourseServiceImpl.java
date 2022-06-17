@@ -4,10 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.Student;
+
 import sg.edu.iss.caps.repositories.CourseRepository;
+
+
+
+
+
 
 public class CourseServiceImpl implements CourseService {
 

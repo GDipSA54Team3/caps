@@ -21,21 +21,16 @@ public interface StudentCourseService {
 	//fetch all Student in the database by Enrollment date//
 		List<Student>getStudentByEnrollmentDate();
 		
-	//deleting a student in the database by Enrollmentdate//
+	//deleting a student in the database by EnrollmentDate//
 		//void deleteStudentByEnrollmentDate(Date);
 		
 	//deleting student by CourseStatus
-		void deleteStudentByCourseStatus(;)
+		void deleteStudentByCourseStatus();
+		
+		//deleting student byGrade
+		void deleteStudentByGrade();
 		
 	
 
-		//fetching one student using the id
-		Student getStudentById(String id);
-		
-		//deleting a  student  in the database
-		void deleteStudentById(String id);
-		
-		//returns a list of student that were searched by name
-		List<Student> returnStudentByName(String name);*/dentByName(String name);*/
 }
 		
