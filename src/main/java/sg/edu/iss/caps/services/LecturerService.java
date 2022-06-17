@@ -1,0 +1,26 @@
+package sg.edu.iss.caps.services;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import sg.edu.iss.caps.model.Lecturer;
+
+
+@Service
+public interface LecturerService {
+	
+	List<Lecturer> getAllLecturers();
+	
+	//saving the employee object in the database
+	void saveLecturer(Lecturer lec);
+	
+	//fetching one employee using the id
+	Lecturer getLecturerById(String id);
+	
+	//deleting the employee in the database
+	void deleteLecturerById(String id);
+	
+	//returns a list of employees that were searched by name
+	List<Lecturer> returnLecturerByName(String name);
+}

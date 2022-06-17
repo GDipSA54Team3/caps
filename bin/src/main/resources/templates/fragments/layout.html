@@ -30,7 +30,6 @@
 	
 	<div th:fragment="sidebar" id="sidebar">
 		<div class="sidenav">
-				<div class="hidden-block"></div>
 				<div><!--th:if="${user has not logged in}"-->
 					<div class="login-form" style="text-align: center">
 						<form>
@@ -52,7 +51,7 @@
 				</div>
 				<div><!--th:if="${user is admin}"-->
 					<a href="#">Manage Students</a>
-					<a th:href="@{/admin/manage-lecturers}">Manage Lecturers</a>
+					<a href="#">Manage Lecturers</a>
 					<a href="#">Manage Courses</a>
 				</div>
 				<div>
