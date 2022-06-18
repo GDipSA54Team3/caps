@@ -31,11 +31,10 @@ public class StudentCourse {
 	//private DateTime enrollmentDate;
 	private CourseStatus courseStatus;
 	
-	public StudentCourse(Student student, Course course, Grade grade, CourseStatus courseStatus) {
+	public StudentCourse(Student student, Course course, CourseStatus courseStatus) {
 		super();
 		this.student = student;
 		this.course = course;
-		this.grade = grade;
 		this.courseStatus = courseStatus;
 	}
 	

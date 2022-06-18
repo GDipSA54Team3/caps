@@ -7,20 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.Lecturer;
-import sg.edu.iss.caps.model.Student;
-
 import sg.edu.iss.caps.repositories.CourseRepository;
+import sg.edu.iss.caps.repositories.StudentRepository;
 
-
-
-
-
-
+@Service
 public class CourseServiceImpl implements CourseService {
 
 	@Autowired
 	private CourseRepository courepo;
+	
+	@Autowired
+	private StudentRepository sr;
 	
 	@Override
 	public List<Course> getAllCourse() {
@@ -59,9 +56,14 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> returnCourseByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return courepo.searchCourseByName(name);
 	}
+
+	@Override
+	public List<Course> getCoursesByStudId(String id) {
+		return sr.findCoursesByStudId(id);
+	}
+
 
 
 

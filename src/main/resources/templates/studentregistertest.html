@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Application Processing System</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div th:insert="fragments/layout.html:: header"></div>
+	<div th:insert="fragments/layout.html:: sidebar"></div>
+
+	<div class="container inside">
+		<h1>Register Course</h1>
+
+		<hr>
+
+			<form action="#" th:action="@{/student/confirmRegister}" method="post">	
+				<div class="row">
+					<div class="col">
+						<select class="custom-select" name="studentId">
+							<option selected>Select student</option>
+							<option th:each="student : ${studentList}" th:text="${student.firstName} + ' ' + ${student.lastName}" th:value="${student.id}"></option>
+						</select>				
+					</div>
+					<div class="col-4">
+						<select class="custom-select" name="courseId">
+							<option selected th:text="${courseObject.courseName}" th:value="${courseObject.id}"></option>
+						</select>
+					</div>
+					<div class="col-4">
+						<button type="submit" class="btn btn-info">Register</button>				
+					</div>
+				</div>
+			</form>
+
+	</div>
+
+	<div th:replace="fragments/layout.html:: footer"></div>
+</body>
+</html>

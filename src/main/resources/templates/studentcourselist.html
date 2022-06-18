@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Application Processing System</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div th:insert="fragments/layout.html:: header"></div>
+	<div th:insert="fragments/layout.html:: sidebar"></div>
+
+	<div class="container inside">
+		<h1>Available Courses</h1>
+
+		<form action="#" th:action="@{/student/searchCourseList}" method="post">
+
+			<table>
+				<tr>
+					<td style="width: 85%"><input type="text" name="search"
+						placeholder="Search course name"
+						class="form-control"></td>
+					<td style="padding-left: 3%"><button type="submit"
+							class="btn btn-info">Search</button></td>
+				</tr>
+			</table>
+
+		</form>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Course Name</th>
+					<th>Course Description</th>
+					<!-- <th>Start Date</th>
+					<th>End Date</th> -->
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="course : ${listCourses}">
+					<td th:text="${course.courseName}"></td>
+					<td th:text="${course.courseDescription}"></td>
+					<!-- <td th:text="${course.startDate}"></td>
+					<td th:text="${course.endDate}"></td> -->
+					<td><a class="btn btn-primary mb-3"
+						th:href="@{/student/registerCourse/}+${course.id}">Register</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div th:replace="fragments/layout.html:: footer"></div>
+</body>
+</html>

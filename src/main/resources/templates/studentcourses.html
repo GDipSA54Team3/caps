@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Application Processing System</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div th:insert="fragments/layout.html:: header"></div>
+	<div th:insert="fragments/layout.html:: sidebar"></div>
+
+	<div class="container inside">
+		<h1>My Courses</h1>
+
+			<form action="#" th:action="@{/student/myCourses}" method="post">
+			<div class="row">
+				<div class="col">
+					<select class="custom-select" name="id">
+						<option selected>Select student</option>
+						<option th:each="student : ${studentList}" th:text="${student.firstName} + ' ' + ${student.lastName}" th:value="${student.id}"></option>
+					</select>				
+				</div>
+				<div class="col-6">
+					<button type="submit" class="btn btn-info">Search</button>				
+				</div>
+			</div>
+			</form>
+		
+		<br>
+		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Course Name</th>
+					<th>Course Description</th>
+					<!-- <th>Start Date</th>
+					<th>End Date</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="course : ${studentCourses}">
+					<td th:text="${course.courseName}"></td>
+					<td th:text="${course.courseDescription}"></td>
+					<!-- <td th:text="${course.startDate}"></td>
+					<td th:text="${course.endDate}"></td> -->
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div th:replace="fragments/layout.html:: footer"></div>
+</body>
+</html>

@@ -3,11 +3,8 @@ package sg.edu.iss.caps.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import sg.edu.iss.caps.model.Course;
 
-import sg.edu.iss.caps.model.*;
-
-@Service
 public interface CourseService {
 	
 		List<Course> getAllCourse();
@@ -25,5 +22,6 @@ public interface CourseService {
 
 		//List<Course> getAllCourses();
 		
+		List<Course> getCoursesByStudId(String id);
 
 }
