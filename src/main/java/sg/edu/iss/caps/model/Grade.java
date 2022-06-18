@@ -5,5 +5,6 @@ public enum Grade {
 	B,
 	C,
 	D,
-	F
+	F,
+	NA
 }

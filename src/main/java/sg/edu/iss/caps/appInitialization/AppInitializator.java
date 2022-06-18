@@ -1,0 +1,112 @@
+package sg.edu.iss.caps.appInitialization;
+
+import java.util.ArrayList;
+
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.CourseStatus;
+import sg.edu.iss.caps.model.Grade;
+import sg.edu.iss.caps.model.Lecturer;
+import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.model.StudentCourse;
+import sg.edu.iss.caps.repositories.AdminRepository;
+import sg.edu.iss.caps.repositories.CourseRepository;
+import sg.edu.iss.caps.repositories.LecturerRepository;
+import sg.edu.iss.caps.repositories.StudentCourseRepository;
+import sg.edu.iss.caps.repositories.StudentRepository;
+
+
+@Component
+public class AppInitializator {
+			
+	
+	    @Autowired
+	    private CourseRepository crepo;
+	    
+	    @Autowired
+	    private LecturerRepository lrepo;
+	    
+	    @Autowired
+	    private AdminRepository arepo;
+	    
+	    @Autowired
+	    private StudentCourseRepository screpo;
+	    
+	    @Autowired
+	    private StudentRepository srepo;
+	   
+	   	        	    
+	    @PostConstruct
+	    private void init() {
+	    	
+	    	crepo.deleteAll();
+	    	srepo.deleteAll();
+	        lrepo.deleteAll();
+	    	arepo.deleteAll();
+	 	    	
+	    	//creating 3 courses and lecturer to pre-load to DB during initialization
+	    	ArrayList<Course> courseList  = new ArrayList<Course>(); 
+	    	ArrayList<Lecturer> lecturerList  = new ArrayList<Lecturer>();
+	    	ArrayList<Student> studentList  = new ArrayList<Student>();
+	    	//ArrayList<StudentCourse> studentCourseList  = new ArrayList<StudentCourse>();
+	    	
+	    	Lecturer lecturer1 = new Lecturer ("achong", "password", "Alan", "Chong", "alan.chong@everbright.edu.sg");		   	
+	    	Course course1 = new Course ("Neural Networks and Deep Learning", "A neural network is a network or circuit of biological neurons, or, "
+	    			+ "in a modern sense, an artificial neural network, composed of artificial neurons or nodes."
+	    			+ " Thus, a neural network is either a biological neural network, made up of biological neurons, or an artificial neural network, "
+	    			+ "used for solving artificial intelligence (AI) problems.", 5);
+	  
+	    	Lecturer lecturer2 = new Lecturer ("clong", "password", "TianHai", "Long", "tianhai.long@everbright.edu.sg");		   	
+	    	Course course2 = new Course ("Internet of Things", "The Internet of Things (IoT) describes physical objects (or groups of such objects) with sensors, "
+	    			+ "processing ability, software, and other technologies that connect and exchange data with other devices "
+	    			+ "and systems over the Internet or other communications networks. Internet of things has been "
+	    			+ "considered a misnomer because devices do not need to be connected to the public internet, they only "
+	    			+ "need to be connected to a network and be individually addressable.", 5);
+	    	
+	    	Lecturer lecturer3 = new Lecturer ("tsbeng", "password", "SweeBeng", "Toh", "sweebeng.toh@everbright.edu.sg");		   	
+	    	Course course3 = new Course ("Data Mining", "Data mining is the process of extracting and discovering patterns in large data sets"
+	    			+ " involving methods at the intersection of machine learning, statistics, and database systems. Data mining is "
+	    			+ "an interdisciplinary subfield of computer science and statistics with an overall goal of extracting information "
+	    			+ "(with intelligent methods) from a data set and transforming the information into a comprehensible structure"
+	    			+ " for further use.", 5);
+	    	
+	    	courseList.add(course1); courseList.add(course2); courseList.add(course3);
+	    	lecturerList.add(lecturer1); lecturerList.add(lecturer2); 	lecturerList.add(lecturer3);
+	    	crepo.saveAll(courseList);
+	    	lrepo.saveAll(lecturerList);
+		    	
+	    	for (Lecturer lec : lecturerList) {	
+	    		lec.setCourses(courseList);	
+		     	lrepo.saveAndFlush(lec);	    		
+	    	}
+	    	
+	    	//Updating Student-Course Table
+	    	Student student1 = new Student ("bjohnson", "password", "Ben", "Johnson", "ben.johnson@gmail.com");		
+	    	Student student2 = new Student ("moen", "password", "Mathew", "Pen", "mathew.pen@everbright.edu.sg");
+	    	Student student3 = new Student ("jhtan", "password", "Johnson", "Tan", "johnson.tan@gmail.com");		
+	    	Student student4 = new Student ("twong", "password", "Tracy", "Wong", "tracy.wong@gmail.com");		
+	    	Student student5 = new Student ("haung", "password", "Helen", "Ang", "helen.ang@gmail.com");		
+	    	Student student6 = new Student ("nktan", "password", "Nicole", "Tan", "nikole.tan@gmail.com");		
+	    	Student student7 = new Student ("mchma", "password", "Michelle", "Ma", "michelle.ma@gmail.com");		
+	    	Student student8 = new Student ("cssim", "password", "ChoonSiong", "Sim", "choosiong.Sim@gmail.com");		
+	    	Student student9 = new Student ("dchander", "password", "Deepak", "Chander", "deepak.chander@gmail.com");		
+	    	Student student10 = new Student ("slng", "password", "Selena", "Ng", "selena.ng@gmail.com");		
+	    	Student student11 = new Student ("nkvimal", "password", "Nikita", "Vimal", "nikita.vimal@gmail.com");	
+	    	Student student12 = new Student ("ahahmd", "password", "Ayisha", "Ahammed", "ayisha.ahammed@gmail.com");	
+	    	
+	    	studentList.add(student1); studentList.add(student2); studentList.add(student3); studentList.add(student4);
+	    	studentList.add(student5); studentList.add(student6); studentList.add(student7); studentList.add(student8);
+	    	studentList.add(student9); studentList.add(student10); studentList.add(student11); studentList.add(student12);   		
+	    	srepo.saveAll(studentList);
+	    	
+	    	for (Student student : studentList ) {	    		
+	    		for (Course course : courseList ) {
+	    			StudentCourse studCour = new StudentCourse (student, course, Grade.NA, CourseStatus.ONGOING); 
+	    			screpo.save(studCour);	    		
+	    		}
+	    	}	    	
+	    }
+	}

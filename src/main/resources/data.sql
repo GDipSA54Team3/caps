@@ -1,8 +1,3 @@
-DELETE FROM lecturer;
-DELETE FROM student;
-DELETE FROM admin;
-DELETE FROM course;
-
 INSERT INTO lecturer(id, first_name, last_name, email, username, password) VALUES(uuid(), "Lawrence", "Tan", "lawrence.tan@everbright.edu.sg", "ltan", "password");
 INSERT INTO lecturer(id, first_name, last_name, email, username, password) VALUES(uuid(), "Jennifer", "Wong", "jennifer.wong@everbright.edu.sg", "jwong", "password");
 INSERT INTO lecturer(id, first_name, last_name, email, username, password) VALUES(uuid(), "Clare", "Lim", "clare.lim@everbright.edu.sg", "clim", "password");
