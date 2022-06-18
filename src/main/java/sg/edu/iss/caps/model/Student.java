@@ -33,7 +33,7 @@ public class Student {
 	@Column(nullable = false, length = 50)
 	private String email;
 	
-	@OneToMany(mappedBy="student")
+	@OneToMany(mappedBy="student", cascade = CascadeType.ALL)
 	private List<StudentCourse> studentCourses;
 
 	public Student(String username, String password, String firstName, String lastName, String email) {

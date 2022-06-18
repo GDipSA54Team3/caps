@@ -2,6 +2,7 @@ package sg.edu.iss.caps.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,10 +38,10 @@ public class Lecturer {
 	@Column(nullable = false, length = 50)
 	private String lastName;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, unique=true)
 	private String email;
 	
-	@ManyToMany
+	@ManyToMany (cascade = CascadeType.ALL)
 	@JoinTable(name="lecturer_course",
 		joinColumns= @JoinColumn(name= "lecturer_Id"),
 		inverseJoinColumns= @JoinColumn(name="course_Id"))
