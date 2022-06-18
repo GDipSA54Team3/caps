@@ -28,11 +28,14 @@ public class Course {
 	private int maxSize;
 	//private Date startDate;
 	//private Date endDate;
-	
-	@ManyToMany (mappedBy= "courses")
+	 	 
+	@ManyToMany (cascade = CascadeType.ALL)
+	@JoinTable(name="lecturer_course",
+	joinColumns= @JoinColumn(name= "course_Id"),
+	inverseJoinColumns= @JoinColumn(name="lecturer_Id"))
 	private List<Lecturer> lecturers;
 	
-	@OneToMany(mappedBy="course")
+	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	private List<StudentCourse> studentCourses;
 
 	public Course(String courseName, String courseDescription, int maxSize) {
@@ -41,6 +44,5 @@ public class Course {
 		this.courseDescription = courseDescription;
 		this.maxSize = maxSize;
 	} 
-	
 	
 }
