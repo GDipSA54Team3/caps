@@ -37,6 +37,16 @@ public class StudentCourse {
 		this.course = course;
 		this.courseStatus = courseStatus;
 	}
+
+	public StudentCourse(Student student, Course course, Grade grade, CourseStatus courseStatus) {
+		super();
+		this.student = student;
+		this.course = course;
+		this.grade = grade;
+		this.courseStatus = courseStatus;
+	}
+	
+	
 	
 	
 }

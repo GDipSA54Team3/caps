@@ -1,7 +1,5 @@
 package sg.edu.iss.caps.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +10,16 @@ import sg.edu.iss.caps.repositories.StudentCourseRepository;
 public class StudentCourseServiceImpl implements StudentCourseService {
 
 	@Autowired
-	private StudentCourseRepository scr;
+	private StudentCourseRepository studCourseRepo;
 	
 	@Override
 	public void newStudentCourse(StudentCourse studentCourse) {
-		scr.saveAndFlush(studentCourse);
+		studCourseRepo.saveAndFlush(studentCourse);
 	}
 
-//	@Override
-//	public List<StudentCourse> getStudentCourseByStudId(String id) {
-//		return scr.findStudentCourseByStudId(id);
-//		
-//	}
+	@Override
+	public void removeStudentCourseById(String id) {
+		studCourseRepo.deleteById(id);
+	}
 
 }

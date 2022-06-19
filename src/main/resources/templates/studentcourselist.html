@@ -11,43 +11,62 @@
 	<div th:insert="fragments/layout.html:: sidebar"></div>
 
 	<div class="container inside">
-		<h1>Available Courses</h1>
-
-		<form action="#" th:action="@{/student/searchCourseList}" method="post">
-
-			<table>
-				<tr>
-					<td style="width: 85%"><input type="text" name="search"
-						placeholder="Search course name"
-						class="form-control"></td>
-					<td style="padding-left: 3%"><button type="submit"
-							class="btn btn-info">Search</button></td>
-				</tr>
-			</table>
-
+		<p>Select student for testing purposes</p>
+		<form action="#" th:action="@{/student/courseList}" method="post">
+			<div class="row">
+				<div class="col">
+					<select class="custom-select" name="id">
+						<option th:each="student : ${studentList}"
+							th:text="${student.firstName} + ' ' + ${student.lastName}"
+							th:value="${student.id}"></option>
+					</select>
+				</div>
+				<div class="col-6">
+					<button type="submit" class="btn btn-info">Search</button>
+				</div>
+			</div>
 		</form>
 
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Course Name</th>
-					<th>Course Description</th>
-					<!-- <th>Start Date</th>
+		<div th:if="${selectedStudent != NULL}">
+			<br>
+			<h1>Available Courses</h1>
+			
+<!-- 			<form action="#" th:action="@{/student/searchCourseList}"
+				method="post">
+				<table>
+					<tr>
+						<td style="width: 85%"><input type="text" name="search"
+							placeholder="Search course name" class="form-control"></td>
+						<td style="padding-left: 3%"><button type="submit"
+								class="btn btn-info">Search</button></td>
+					</tr>
+				</table>
+			</form> -->
+			<p th:text="'Registering for ' + ${selectedStudent.firstName} + ' ' + ${selectedStudent.lastName}"></p>
+			
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Course Name</th>
+						<th>Course Description</th>
+						<!-- <th>Start Date</th>
 					<th>End Date</th> -->
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="course : ${listCourses}">
-					<td th:text="${course.courseName}"></td>
-					<td th:text="${course.courseDescription}"></td>
-					<!-- <td th:text="${course.startDate}"></td>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="course : ${listCourses}">
+						<td th:text="${course.courseName}"></td>
+						<td th:text="${course.courseDescription}"></td>
+						<!-- <td th:text="${course.startDate}"></td>
 					<td th:text="${course.endDate}"></td> -->
-					<td><a class="btn btn-primary mb-3"
-						th:href="@{/student/registerCourse/}+${course.id}">Register</a></td>
-				</tr>
-			</tbody>
-		</table>
+						<!-- <td><a class="btn btn-primary mb-3" role="button" th:href="@{/student/registerCourse/}+${selectedStudent.id}+@{/}+${course.id}">Register</a></td> -->
+						<td th:if="${!#lists.contains(studRegisteredCourses, course)}"><a class="btn btn-primary mb-3" th:href="@{/student/registerCourse/}+${selectedStudent.id}+@{/}+${course.id}">Register</a></td>
+						<td th:if="${#lists.contains(studRegisteredCourses, course)}"><a class="btn btn-outline-primary mb-3 disabled">Enrolled</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
 	</div>
 

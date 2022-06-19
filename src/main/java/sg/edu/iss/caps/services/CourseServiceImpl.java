@@ -17,7 +17,7 @@ public class CourseServiceImpl implements CourseService {
 	private CourseRepository courepo;
 	
 	@Autowired
-	private StudentRepository sr;
+	private StudentRepository studRepo;
 	
 	@Override
 	public List<Course> getAllCourse() {
@@ -55,17 +55,14 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> returnCourseByName(String name) {
-		return courepo.searchCourseByName(name);
+	public List<Course> findCoursesByName(String name) {
+		return courepo.findCoursesByName(name);
 	}
 
 	@Override
-	public List<Course> getCoursesByStudId(String id) {
-		return sr.findCoursesByStudId(id);
+	public List<Course> findCoursesByStudId(String id) {
+		return studRepo.findCoursesByStudId(id);
 	}
-
-
-
 
 
 

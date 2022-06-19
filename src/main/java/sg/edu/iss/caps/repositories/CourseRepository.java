@@ -11,8 +11,7 @@ import sg.edu.iss.caps.model.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, String> {
 	
-	
 	@Query("select c from Course c where c.courseName like %:name%")
-	List<Course> searchCourseByName(String name);
+	List<Course> findCoursesByName(String name);
 
 }
