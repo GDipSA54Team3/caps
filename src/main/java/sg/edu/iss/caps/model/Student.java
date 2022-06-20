@@ -18,7 +18,7 @@ public class Student {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, unique=true)
 	private String username;
 	
 	@Column(nullable = false, length = 50)
@@ -30,7 +30,7 @@ public class Student {
 	@Column(nullable = false, length = 50)
 	private String lastName;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, unique=true)
 	private String email;
 	
 	@OneToMany(mappedBy="student", cascade = CascadeType.ALL)

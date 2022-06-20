@@ -14,7 +14,6 @@ INSERT INTO lecturer(id, first_name, last_name, email, username, password) VALUE
 INSERT INTO lecturer(id, first_name, last_name, email, username, password) VALUES(uuid(), "Park", "Liew", "park.liew@everbright.edu.sg", "pliew", "password");
 INSERT INTO lecturer(id, first_name, last_name, email, username, password) VALUES(uuid(), "Ranbir", "Das", "ranbir.das@everbright.edu.sg", "rdas", "password");
 
-
 INSERT INTO student(id, first_name, last_name, email, username, password) VALUES(uuid(), "luke", "Sim", "luke.sim@gmail.com", "lsim", "password");
 INSERT INTO student(id, first_name, last_name, email, username, password) VALUES(uuid(), "Hank", "Chua", "hank.chua@everbright.edu.sg", "hchua", "password");
 INSERT INTO student(id, first_name, last_name, email, username, password) VALUES(uuid(), "Nimmy", "Fernandus", "nimmy.fernadus@everbright.edu.sg", "nfernadus", "password");
@@ -42,7 +41,7 @@ INSERT INTO student(id, first_name, last_name, email, username, password) VALUES
 INSERT INTO student(id, first_name, last_name, email, username, password) VALUES(uuid(), "Wei", "Dong", "wei.dong@everbright.edu.sg", "wdong", "password");
 INSERT INTO student(id, first_name, last_name, email, username, password) VALUES(uuid(), "James", "Cannon", "james.cannon@gmail.com", "gcannon", "password");
 
-INSERT INTO admin(id, first_name, last_name, email, username, password) VALUES(uuid(), "Meena", "Subhash", "jake.chong@gmail.com", "admin1", "password");
+INSERT INTO admin(id, first_name, last_name, email, username, password) VALUES(uuid(), "Meena", "Subhash", "meena.subhash@gmail.com", "admin1", "password");
 INSERT INTO admin(id, first_name, last_name, email, username, password) VALUES(uuid(), "Jake", "Lim", "jake.lim@everbright.edu.sg", "admin2", "password");
 
 INSERT INTO course(id, course_name, course_description, max_size) VALUES(uuid(), "Computational Mathematics", "Computational applied mathematics consists roughly of using mathematics for allowing and improving computer computation in applied mathematics. Computational mathematics may also refer to the use of computers for mathematics itself. This includes the use of computers for mathematical computations (computer algebra), the study of what can (and cannot) be computerized in mathematics (effective methods), which computations may be done with present technology (complexity theory), and which proofs can be done on computers", 10);

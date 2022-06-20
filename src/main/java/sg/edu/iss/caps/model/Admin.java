@@ -19,7 +19,7 @@ public class Admin {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, unique=true)
 	private String username;
 	
 	@Column(nullable = false, length = 50)
@@ -31,7 +31,7 @@ public class Admin {
 	@Column(nullable = false, length = 50)
 	private String lastName;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, unique=true)
 	private String email;
 
 	public Admin(String username, String password, String firstName, String lastName, String email) {

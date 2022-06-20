@@ -46,7 +46,7 @@
 					<a href="#">CGPA Calculator</a>
 				</div>
 				<div><!--th:if="${user is lecturer}"-->
-					<a href="#">View My Courses</a>
+					<a th:href="@{/lecturer/view-courses}">View My Courses</a>
 					<a href="#">Grade Course</a>
 					<a href="#">View Student Performance</a>
 				</div>
@@ -59,8 +59,7 @@
 					<a href="#">Logout</a>
 				</div>
 		</div>
-	</div>
-	
+	</div>	
 	<div th:fragment="footer" id="footer">
 	Employee List Again
 	</div>
