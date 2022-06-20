@@ -55,6 +55,20 @@ public class LecturerServiceImpl implements LecturerService {
 		// TODO Auto-generated method stub
 		return lecrepo.searchLecturerByName(name);
 	}
+	@Override
+	public void assignLecturerToCourse(Lecturer lec,String courseid) {
+		// TODO Auto-generated method stub
+		lecrepo.save(lec);
+		
+	}
+	@Override
+	public void unassignLecturerFromCourse(String courseid, String lecturerid) {
+		// TODO Auto-generated method stub
+		lecrepo.deleteById(lecturerid);
+	}
+
+	
+	
 	
 
 

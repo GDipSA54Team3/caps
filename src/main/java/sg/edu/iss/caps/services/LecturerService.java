@@ -23,4 +23,9 @@ public interface LecturerService {
 	
 	//returns a list of employees that were searched by name
 	List<Lecturer> returnLecturerByName(String name);
+	
+	void assignLecturerToCourse(Lecturer lec,String courseid);
+	
+	void unassignLecturerFromCourse(String courseid, String lecturerid);
+	
 }
