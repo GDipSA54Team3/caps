@@ -1,9 +1,13 @@
 package sg.edu.iss.caps.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Course;
@@ -11,8 +15,9 @@ import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.Student;
 
 import sg.edu.iss.caps.repositories.CourseRepository;
+import sg.edu.iss.caps.repositories.LecturerRepository;
 
-
+@Service
 public class CourseServiceImpl implements CourseService {
 
 	@Autowired
@@ -58,9 +63,13 @@ public class CourseServiceImpl implements CourseService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
-
+	
+	@Override
+	public  List<Course> getCoursesByLecturerId(String lecturerId)  {
+		
+		List<Course> clist = courepo.getCoursesByLecturerId(lecturerId);
+		
+		return clist;
+	 }
+		
 }

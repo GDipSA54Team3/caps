@@ -1,6 +1,7 @@
 package sg.edu.iss.caps.appInitialization;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import sg.edu.iss.caps.repositories.CourseRepository;
 import sg.edu.iss.caps.repositories.LecturerRepository;
 import sg.edu.iss.caps.repositories.StudentCourseRepository;
 import sg.edu.iss.caps.repositories.StudentRepository;
-
 
 @Component
 public class AppInitializator {
@@ -37,21 +37,22 @@ public class AppInitializator {
 	    
 	    @Autowired
 	    private StudentRepository srepo;
-	   
+	    private static final Logger LOGGER = Logger.getLogger(AppInitializator.class.getName());
 	   	        	    
 	    @PostConstruct
 	    private void init() {
 	    	
+	    	LOGGER.info(String.format("\n---------------------Clearing All data from database --------------------------"));
 	    	crepo.deleteAll();
 	    	srepo.deleteAll();
 	        lrepo.deleteAll();
 	    	arepo.deleteAll();
 	 	    	
-	    	//creating 3 courses and lecturer to pre-load to DB during initialization
+	    	/*creating 3 courses and lecturer to pre-load to DB during initialization for joined table
+	    	data into the independent tables will be loaded from data.sql file*/
 	    	ArrayList<Course> courseList  = new ArrayList<Course>(); 
 	    	ArrayList<Lecturer> lecturerList  = new ArrayList<Lecturer>();
 	    	ArrayList<Student> studentList  = new ArrayList<Student>();
-	    	//ArrayList<StudentCourse> studentCourseList  = new ArrayList<StudentCourse>();
 	    	
 	    	Lecturer lecturer1 = new Lecturer ("achong", "password", "Alan", "Chong", "alan.chong@everbright.edu.sg");		   	
 	    	Course course1 = new Course ("Neural Networks and Deep Learning", "A neural network is a network or circuit of biological neurons, or, "
@@ -75,15 +76,19 @@ public class AppInitializator {
 	    	
 	    	courseList.add(course1); courseList.add(course2); courseList.add(course3);
 	    	lecturerList.add(lecturer1); lecturerList.add(lecturer2); 	lecturerList.add(lecturer3);
+	    	
+	    	LOGGER.info(String.format("\n-----------updating cousre table-----------"));
 	    	crepo.saveAll(courseList);
+	    	LOGGER.info(String.format("\n-----------updating lecturer table-----------"));
 	    	lrepo.saveAll(lecturerList);
-		    	
+		    
+	    	LOGGER.info(String.format("\n-----------Updatating lecturer_course table-----------"));
 	    	for (Lecturer lec : lecturerList) {	
 	    		lec.setCourses(courseList);	
 		     	lrepo.saveAndFlush(lec);	    		
 	    	}
-	    	
-	    	//Updating Student-Course Table
+	    	//Updating Student-Course Table by creating some student objects and assigning courses to them
+	    		    	
 	    	Student student1 = new Student ("bjohnson", "password", "Ben", "Johnson", "ben.johnson@gmail.com");		
 	    	Student student2 = new Student ("moen", "password", "Mathew", "Pen", "mathew.pen@everbright.edu.sg");
 	    	Student student3 = new Student ("jhtan", "password", "Johnson", "Tan", "johnson.tan@gmail.com");		
@@ -99,14 +104,19 @@ public class AppInitializator {
 	    	
 	    	studentList.add(student1); studentList.add(student2); studentList.add(student3); studentList.add(student4);
 	    	studentList.add(student5); studentList.add(student6); studentList.add(student7); studentList.add(student8);
-	    	studentList.add(student9); studentList.add(student10); studentList.add(student11); studentList.add(student12);   		
+	    	studentList.add(student9); studentList.add(student10); studentList.add(student11); studentList.add(student12);
+	    	
+	    	LOGGER.info(String.format("\n-----------updating student table-----------"));
 	    	srepo.saveAll(studentList);
 	    	
+	    	LOGGER.info(String.format("\n-----------Updatating student_course table-----------"));
 	    	for (Student student : studentList ) {	    		
 	    		for (Course course : courseList ) {
 	    			StudentCourse studCour = new StudentCourse (student, course, Grade.NA, CourseStatus.ONGOING); 
-	    			screpo.save(studCour);	    		
+	    			screpo.save(studCour);	  	    		
 	    		}
 	    	}	    	
+	    	LOGGER.info(String.format("\n-----------More data for Independant tables will be loaded from data.sql file-----------"));
 	    }
 	}
+

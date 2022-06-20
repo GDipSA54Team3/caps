@@ -43,7 +43,6 @@ public class LecturerServiceImpl implements LecturerService {
 			
 		return lec;
 	}
-
 	@Override
 	public void deleteLecturerById(String id) {
 		// TODO Auto-generated method stub
@@ -55,7 +54,4 @@ public class LecturerServiceImpl implements LecturerService {
 		// TODO Auto-generated method stub
 		return lecrepo.searchLecturerByName(name);
 	}
-	
-
-
 }
