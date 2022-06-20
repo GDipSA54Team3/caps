@@ -40,6 +40,7 @@
 						<th>Grade</th>
 						<!-- <th>Start Date</th>
 					<th>End Date</th> -->
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,6 +50,7 @@
 						<td th:text="${studCourse.grade}"></td>
 						<!-- <td th:text="${course.startDate}"></td>
 					<td th:text="${course.endDate}"></td> -->
+						<td><a class="btn btn-danger mb-3" th:href="@{/student/deleteEnrollment/}+${studCourse.id}">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>

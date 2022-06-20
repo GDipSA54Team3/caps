@@ -74,8 +74,8 @@ public class StudentController {
 	public String regCourse(Model model, @PathVariable("courseId") String courseId, @PathVariable("studentId") String studentId) throws DuplicateException {
 		List<Course> studentRegCourses = courseServ.findCoursesByStudId(studentId);
 		if (!studentRegCourses.contains(courseServ.getCourseById(courseId))) {
-			StudentCourse test = new StudentCourse(studServ.getStudentById(studentId), courseServ.getCourseById(courseId), CourseStatus.ENROLLED);
-			studCourseServ.newStudentCourse(test);
+			StudentCourse sc = new StudentCourse(studServ.getStudentById(studentId), courseServ.getCourseById(courseId), CourseStatus.ENROLLED);
+			studCourseServ.newStudentCourse(sc);
 		} else {
 			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\" \n\n", courseServ.getCourseById(courseId).getCourseName()));
 		}
@@ -100,5 +100,12 @@ public class StudentController {
 		model.addAttribute("studentCourses", studCourseList);
 		model.addAttribute("selectedStudent", studServ.getStudentById(id));
 		return "studentcourses";
+	}
+	
+	//testing only
+	@GetMapping("/deleteEnrollment/{studCourseId}")
+	public String deleteEnrollment(@PathVariable("studCourseId") String studCourseId) {
+		studCourseServ.removeStudentCourseById(studCourseId);
+		return "redirect:/student/findMyCourses";
 	}
 }

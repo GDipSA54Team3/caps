@@ -62,7 +62,7 @@
 					<td th:text="${course.endDate}"></td> -->
 						<!-- <td><a class="btn btn-primary mb-3" role="button" th:href="@{/student/registerCourse/}+${selectedStudent.id}+@{/}+${course.id}">Register</a></td> -->
 						<td th:if="${!#lists.contains(studRegisteredCourses, course)}"><a class="btn btn-primary mb-3" th:href="@{/student/registerCourse/}+${selectedStudent.id}+@{/}+${course.id}">Register</a></td>
-						<td th:if="${#lists.contains(studRegisteredCourses, course)}"><a class="btn btn-outline-primary mb-3 disabled">Enrolled</a></td>
+						<td th:if="${#lists.contains(studRegisteredCourses, course)}"><a class="btn btn-outline-primary mb-3 disabled">Register</a></td>
 					</tr>
 				</tbody>
 			</table>
