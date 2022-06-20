@@ -2,6 +2,7 @@ package sg.edu.iss.caps.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,10 @@ public class LecturerServiceImpl implements LecturerService {
 		return lecrepo.searchLecturerByName(name);
 	}
 	
+	@Override
+	public List<Lecturer> returnLecturerByCredentials(String username, String password) {
+		return lecrepo.searchLecturerByCredentials(username, password);
+	}
 
 
 }

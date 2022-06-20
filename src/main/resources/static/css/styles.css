@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
 body {
 	margin: 0;
 	overflow-y: auto;
+	font-family: "Nanum Gothic";
+	background-image: url("../images/background.png");
+	background-size:cover;
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
 }
 
 :root {
@@ -85,4 +92,72 @@ h1 {
 
 .hidden-block{
 	min-height: 80px;
+}
+
+/*for intro animation*/
+.intro {
+  background: var(--main-color);
+  /*
+  background-image:url("../images/Subtract.png");
+  background-size:cover;
+  */
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider {
+  background: rgb(97, 105, 109);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+}
+
+.intro-text {
+  color: rgb(233, 233, 233);
+  font-size: 3rem;
+}
+
+.intro-text .logo {
+	display: inline-block;
+	margin:-4px;
+}
+
+.hide {
+  background: var(--main-color);
+  overflow: hidden;
+}
+
+.hide span {
+  transform: translateY(100%);
+  display: inline-block;
+
+}
+
+.navbar-name {
+	color: #eeeeee;
+	padding-right: 5%;
+	text-align:right;
+	-ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.lists {
+	table-layout: auto;
+	background-color: white;
+}
+
+.table-action {
+	white-space: nowrap;
 }

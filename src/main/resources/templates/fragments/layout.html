@@ -3,8 +3,8 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>EVERbright School Course Admission system</title>
-	
+	<title>EVERbright School Course Admission System</title>
+		
 	<link rel="icon" href="../../static/images/favicon.ico">
 
 	<!-- Bootstrap CSS -->
@@ -17,52 +17,76 @@
 
 <body>
 	<div th:fragment="header" id="header">
-		<div class = "nav">
-			<table>
+		<div class = "nav " style="display: flex; justify-content: space-between;">
+			<table width="100%">
 				<tr>
-					<td><a href="#home"><img th:src="@{/images/logo2.svg}"></a></td>
-					<td><a href="#news"></a></td>
-					<td><a href="#contact"></a></td>
+					<td>
+						<a href="#home"><img th:src="@{/images/logo2.svg}"></a>
+					</td>
+					<td class = "navbar-name">
+						<span style= "font-weight:lighter;">Welcome, </span>
+    					<span th:if="${session.loggeduser.loggeduser.username == ''}" style= "font-weight: bolder;" th:utext="Guest"/>
+						<span th:unless="${session.loggeduser.loggeduser.username == ''}" style= "font-weight: bolder;" th:utext="${session.loggeduser.loggeduser.username}"/>
+						<span style= "font-weight:lighter; margin-left: -3px;">!</span>
+						<span th:utext="${session.loggeduser.loggeduser.userId}"></span>
+					</td>
 				</tr>
 			</table>
+
+			
 		</div>
 	</div>
 	
 	<div th:fragment="sidebar" id="sidebar">
-		<div class="sidenav">
-				<div class="hidden-block"></div>
-				<div><!--th:if="${user has not logged in}"-->
+		<div class="sidenav shadow-sm" th:switch="${session.loggeduser.loggeduser.role}">
+				<div class="hidden-block">
+				</div>
+				
+				<div th:case="${T(sg.edu.iss.caps.model.Role).STUDENT}"><!--th:if="${user is student}"-->
+					<div style="padding-top: 10%;">
+						<a href="#">My Courses</a>
+						<a href="#">Enroll a Class</a>
+						<a href="#">CGPA Calculator</a>
+						<a th:href="@{/log/logout}">Logout</a>
+					</div>
+				</div>
+				
+				<div th:case="${T(sg.edu.iss.caps.model.Role).LECTURER}"><!--th:if="${user is lecturer}"-->
+					<div style="padding-top: 10%;">
+						<a href="#">View My Courses</a>
+						<a href="#">Grade Course</a>
+						<a href="#">View Student Performance</a>
+						<a th:href="@{/log/logout}">Logout</a>
+					</div>
+				</div>
+				
+				<div th:case="${T(sg.edu.iss.caps.model.Role).ADMIN}"><!--th:if="${user is admin}"-->
+					<div style="padding-top: 10%;">
+						<a href="#">Admin Home</a>
+						<a href="#">Manage Students</a>
+						<a th:href="@{/admin/manage-lecturers}">Manage Lecturers</a>
+						<a href="#">Manage Courses</a>
+						<a th:href="@{/log/logout}">Logout</a>
+					</div>
+				</div>
+				
+				<div th:case="${T(sg.edu.iss.caps.model.Role).TO_LOGIN}"><!--th:if="${user has not logged in}"-->
 					<div class="login-form" style="text-align: center">
-						<form>
-							<input type= "text" class = "form-control form-control-sm" placeholder = "username">
-							<input type = "text" class = "form-control form-control-sm" placeholder = "password">
+						<span style="color: #888888;">Login</span>
+						<form style="margin: 7% 0;" th:object="${user}" th:action="@{/log/login}" method="get">
+							<input type= "text" th:field="*{username}" class = "form-control form-control-sm" th:placeholder = "username">
+							<input type = "password" th:field="*{password}" class = "form-control form-control-sm" th:placeholder = "password">
 							<button type = "submit" class = "btn btn-primary">Login</button>
 						</form>
 					</div>
 				</div>
-				<div><!--th:if="${user is student}"-->
-					<a href="#">My Courses</a>
-					<a href="#">Enroll a Class</a>
-					<a href="#">CGPA Calculator</a>
-				</div>
-				<div><!--th:if="${user is lecturer}"-->
-					<a href="#">View My Courses</a>
-					<a href="#">Grade Course</a>
-					<a href="#">View Student Performance</a>
-				</div>
-				<div><!--th:if="${user is admin}"-->
-					<a href="#">Manage Students</a>
-					<a th:href="@{/admin/manage-lecturers}">Manage Lecturers</a>
-					<a href="#">Manage Courses</a>
-				</div>
-				<div>
-					<a href="#">Logout</a>
-				</div>
+
 		</div>
 	</div>
 	
-	<div th:fragment="footer" id="footer">
-	Employee List Again
+	<div th:fragment="admin-banner" id="admin-banner">
+		
+			<h1>Manage Lecturers</h1>
 	</div>
 </body>
 </html>

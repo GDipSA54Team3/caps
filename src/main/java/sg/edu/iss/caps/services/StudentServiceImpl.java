@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.repositories.StudentRepository;
 
+@Service
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
@@ -52,6 +54,12 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> returnStudentByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Student> returnStudentByCredentials(String username, String password) {
+		// TODO Auto-generated method stub
+		return studrepo.searchStudentByCredentials(username, password);
 	}
 
 //update grade//

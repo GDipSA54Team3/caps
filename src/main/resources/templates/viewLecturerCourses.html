@@ -20,11 +20,13 @@
 	<div th:insert="fragments/layout.html:: header"></div>
 	<div th:insert="fragments/layout.html:: sidebar"></div>
 	
-
-	
 	<div class="container inside">
-		<div th:insert="fragments/layout.html:: admin-banner">
-		</div>
+		<button class = "btn btn-link" style="margin: 2vh;" onclick="window.history.back()">< Go Back</button>
+		<h1><span th:utext="${lecturer.firstName}"/> <span th:utext="${lecturer.lastName}"/></h1>
+		<h5>Username: <span th:utext="${lecturer.username}"/></h5>
+		<h5><span>Courses Taught:</span><span th:utext="${lecturer.courses.size}"/></h5>
+		
+		<!--
 		<div style="margin-bottom: 3%;">
 			<table width="100%">
 				<tr>
@@ -44,13 +46,13 @@
 				</tr>
 			</table>
 		</div>
-	
+		-->
 		<table class="table table-striped table-form lists">
 		<thead>
 			<tr>
-				<th>Lecturer First Name</th>
-				<th>Lecturer Last Name</th>
-				<th>Email</th>
+				<th>Course Name</th>
+				<th>Course Description</th>
+				<th>Capacity</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -61,13 +63,13 @@
 			inside the quotes: 
 				var_name : ${object_passed_from_controller} <- make sure this is a collection 
 		-->
-			<tr th:each="lec : ${listLecturers}">
+			<tr th:each="course : ${listCourse}">
 				<!--
 					use ${var_name.attribute} to access the attributes of the object
 				-->
-				<td th:text="${lec.firstName}"></td>
-				<td th:text="${lec.lastName}"></td>
-				<td th:text="${lec.email}"></td>
+				<td th:text="${course.courseName}"></td>
+				<td th:text="${course.courseDescription}"></td>
+				<td th:text="${course.maxSize}"></td>
 				<td class="table-action">
 					<a th:href="@{/admin/update-lecturer/{id}(id=${lec.id})}" class="btn btn-primary">Update</a>
 					<a th:href="@{/admin/delete-lecturer/{id}(id=${lec.id})}" class="btn btn-danger">Delete</a>

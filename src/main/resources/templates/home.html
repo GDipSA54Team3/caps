@@ -3,25 +3,127 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Course Assignment System</title>
+	<title>EVERbright School Course Admission System</title>
+		
+	<link rel="icon" th:href="@{/images/favicon.ico}">
 
 	<!-- Bootstrap CSS-->
 	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 	<!-- Bootstrap CSS-->
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	
-	
+
 </head>
 
 <body>
 	<div th:insert="fragments/layout.html:: header"></div>
 	<div th:insert="fragments/layout.html:: sidebar"></div>
 	
-	<div class="container my-2">
+	<div class="container inside">
 	<!-- put html code inside this area -->
-	
+		<h1>Welcome to 
+				<span class="text logo" style="color:#E3073C; font-weight: bolder; margin-right: -10px;">E</span>
+				<span class="text logo" style="color:#FFD200; font-weight: bolder; margin-right: -10px;">V</span>
+				<span class="text logo" style="color:#06E07F; font-weight: bolder; margin-right: -10px;">E</span>
+				<span class="text logo" style="color:#1F84EF; font-weight: bolder; margin-right: -10px;">R</span>
+			bright.
+		</h1>
+		<p>In EVERbright, we believe in creating the best environment for our students.</p>
+			<div class="card-columns">
+			  <div class="card shadow">
+			    <img th:src="@{/images/group-outside.jpg}" class="card-img-top">
+			    <div class="card-body">
+			      <h5 class="card-title">Resumption of Outdoor Classes Approved</h5>
+			      <p class="card-text">After the announcement made by the Ministry of Education, EVERbright will resume its outdoor classes on July 4, 2022. card has supporting text below as a natural lead-in to additional content.</p>
+			    </div>
+			  </div>
+			  <div class="card shadow">
+			    <img th:src="@{/images/prof-lecture.jpg}" class="card-img-top">
+			  </div>
+			  <div class="card shadow">
+			    <img th:src="@{/images/prof-discussion.jpg}" class="card-img-top">
+			    <div class="card-body">
+			      <h5 class="card-title">Card title</h5>
+			      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+			      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+			    </div>
+			  </div>
+			  <div class="card bg-primary text-white text-center p-3 shadow">
+			    <blockquote class="blockquote mb-0">
+			      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+			      <footer class="blockquote-footer text-white">
+			        <small>
+			          Someone famous in <cite title="Source Title">Source Title</cite>
+			        </small>
+			      </footer>
+			    </blockquote>
+			  </div>
+			  <div class="card text-center shadow">
+			    <div class="card-body">
+			      <h5 class="card-title">Card title</h5>
+			      <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
+			      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+			    </div>
+			  </div>
+			  <div class="card shadow">
+			    <img th:src="@{/images/prof-lecture.jpg}" class="card-img-top">
+			  </div>
+			  <div class="card shadow">
+			    <img th:src="@{/images/prof-lecture.jpg}" class="card-img-top">
+			  </div>
+			  <div class="card shadow">
+			    <div class="card-body">
+			      <h5 class="card-title">Card title</h5>
+			      <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+			      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+			    </div>
+			  </div>
+		</div>
 	</div>
 	
+	<div class="intro">
+		<table width="60%" >
+			<tr>
+				<td>
+					<img th:src="@{/images/splash-logo.png}">
+				</td>
+				<td>
+					&nbsp;
+				</td>
+				<td>
+					<div class="intro-text">
+				        <h1 class="hide">
+				          <span class="text">Welcome to the</span>
+				        </h1>
+				        <h1 class="hide" style="font-weight:bolder">
+				          	<span class="text logo" style="color:#E3073C">E</span>
+				          	<span class="text logo" style="color:#FFD200">V</span>
+				          	<span class="text logo" style="color:#06E07F">E</span>
+				          	<span class="text logo" style="color:#1F84EF">R</span>
+				          	<spanclass="text">bright School</span>
+				        </h1>
+				        <h1 class="hide">
+				          <span class="text">Course Administration System.</span>
+				        </h1>
+			      	</div>
+				</td>
+			</tr>
+		</table>
+      
+    </div>
+    
+    <div class="slider"></div>
+    
+    
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"
+      integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ=="
+      crossorigin="anonymous"
+    ></script>
+	
+	<script type="text/javascript" th:src="@{/js/caps.js}"></script>
+	<!--
 	<div th:replace="fragments/layout.html:: footer"></div>
+	-->
 </body>
 </html>
