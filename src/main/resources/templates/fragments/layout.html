@@ -80,24 +80,7 @@
 						</form>
 					</div>
 				</div>
-				<div><!--th:if="${user is student}"-->
-					<a href="#">My Courses</a>
-					<a href="#">Enroll a Class</a>
-					<a href="#">CGPA Calculator</a>
-				</div>
-				<div><!--th:if="${user is lecturer}"-->
-					<a th:href="@{/lecturer/view-courses}">View My Courses</a>
-					<a href="#">Grade Course</a>
-					<a href="#">View Student Performance</a>
-				</div>
-				<div><!--th:if="${user is admin}"-->
-					<a href="#">Manage Students</a>
-					<a th:href="@{/admin/manage-lecturers}">Manage Lecturers</a>
-					<a href="#">Manage Courses</a>
-				</div>
-				<div>
-					<a href="#">Logout</a>
-				</div>
+
 		</div>
 	</div>
 	
