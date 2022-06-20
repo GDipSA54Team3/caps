@@ -16,6 +16,7 @@ import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.LoginUser;
 import sg.edu.iss.caps.model.Role;
+import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 
 
@@ -150,20 +151,20 @@ public class AdminController {
 		
 		return "redirect:/admin/manage-course";
 	}
-	@PostMapping("/assign-lecturer")
-	public String assignLecturer(@ModelAttribute("Course") Course course, Lecturer lecturer) {
-		lecserv.assignLecturerToCourse(lecturer, course.getId());
-		
-		return "redirect:/admin/manage-course";
-	}
-	
-	@GetMapping("/unassign-lecturer")
-	public String unassignLecturerFromCourse(@ModelAttribute("Course") Course course, Lecturer lecturer) {
-		
-		lecserv.unassignLecturerFromCourse(course.getId(),lecturer.getId());
-		
-		return "redirect:/admin/manage-course";
-	}
+//	@PostMapping("/assign-lecturer")
+//	public String assignLecturer(@ModelAttribute("Course") Course course, Lecturer lecturer) {
+//		lecserv.assignLecturerToCourse(lecturer, course.getId());
+//		
+//		return "redirect:/admin/manage-course";
+//	}
+//	
+//	@GetMapping("/unassign-lecturer")
+//	public String unassignLecturerFromCourse(@ModelAttribute("Course") Course course, Lecturer lecturer) {
+//		
+//		lecserv.unassignLecturerFromCourse(course.getId(),lecturer.getId());
+//		
+//		return "redirect:/admin/manage-course";
+//	}
 	
 	
 	
