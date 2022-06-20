@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.Lecturer;
+import sg.edu.iss.caps.model.LoginUser;
+import sg.edu.iss.caps.model.Role;
+import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 
 
@@ -20,12 +24,19 @@ import sg.edu.iss.caps.services.LecturerService;
 @RequestMapping("/admin")
 public class AdminController {
 	
+	@Autowired
+	private LoginController loginCon;
+	
+	
 	/*
 	 * REPOSITORIES TO INJECT STARTS HERE
 	 */
 
 	@Autowired
 	private LecturerService lecserv;
+	
+	@Autowired
+	private CourseService couserv;
 	
 	/*
 	 * REPOSITORIES TO INJECT ENDS HERE
@@ -40,6 +51,7 @@ public class AdminController {
 	@RequestMapping("/manage-lecturers")
 	public String viewHomePage(Model model) {
 		model.addAttribute("listLecturers", lecserv.getAllLecturers());
+		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
 		return "managelecturers";
 	}
 	
@@ -49,6 +61,7 @@ public class AdminController {
 		
 		model.addAttribute("lecturer", lecturer);
 		
+		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
 		return "newLecturer";
 	}
 	
@@ -69,6 +82,7 @@ public class AdminController {
 		
 		model.addAttribute("lecturer", lecturer);
 		
+		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
 		return "updateLecturer";
 	}
 	
@@ -77,6 +91,7 @@ public class AdminController {
 		
 		lecserv.deleteLecturerById(id);
 		
+		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
 		return "redirect:/admin/manage-lecturers";
 	}
 	
@@ -86,13 +101,72 @@ public class AdminController {
 		
 		model.addAttribute("listLecturers", listLecturers);
 		
+		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
 		return "managelecturers";
 	}
 	
-	/*
-	*/
+	@GetMapping("/view-lecturer-courses/{id}")
+	public String viewLecturerCourses(@PathVariable(value = "id") String id, Model model) {
+		
+		Lecturer lecturer = lecserv.getLecturerById(id);
+		
+		List<Course> listCourse = lecturer.getCourses();
+		
+		model.addAttribute("listCourse", listCourse);
+		model.addAttribute("lecturer", lecturer);
+		
+		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+		return "viewLecturerCourses";
+	}
 	
 	/*
 	 * LECTURER METHODS END HERE
 	 */
+	@RequestMapping("/manage-course")
+	public String viewCoursePage(Model model) {
+		model.addAttribute("listCourse", couserv.getAllCourse());
+		return "manageCourse";
+	}
+	@PostMapping("/save-course")
+	public String saveCourse(@ModelAttribute("Course") Course course) {
+		couserv.saveCourse(course);
+		
+		return "redirect:/admin/manage-course";
+	}
+	
+	@GetMapping("/edit-course/{id}")
+	public String editCourseById(@PathVariable(value = "id") String id, Model model) {
+		
+		Course course = couserv.getCourseById(id);
+		
+		
+		model.addAttribute("Course", course);
+		
+		return "updateCourse";
+	}
+	@GetMapping("/delete-course/{id}")
+	public String removeCourse(@PathVariable(value = "id") String id, Model model) {
+		
+		couserv.deleteCourseById(id);
+		
+		return "redirect:/admin/manage-course";
+	}
+//	@PostMapping("/assign-lecturer")
+//	public String assignLecturer(@ModelAttribute("Course") Course course, Lecturer lecturer) {
+//		lecserv.assignLecturerToCourse(lecturer, course.getId());
+//		
+//		return "redirect:/admin/manage-course";
+//	}
+//	
+//	@GetMapping("/unassign-lecturer")
+//	public String unassignLecturerFromCourse(@ModelAttribute("Course") Course course, Lecturer lecturer) {
+//		
+//		lecserv.unassignLecturerFromCourse(course.getId(),lecturer.getId());
+//		
+//		return "redirect:/admin/manage-course";
+//	}
+	
+	
+	
+	
 }

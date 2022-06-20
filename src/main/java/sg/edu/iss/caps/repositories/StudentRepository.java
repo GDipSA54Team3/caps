@@ -19,4 +19,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 	
 	@Query("SELECT c.course FROM Student s JOIN s.studentCourses c WHERE c.student.id = :id")
 	List<Course> findCoursesByStudId(String id);
+	
+	@Query("select s from Student s where s.username = ?1 and s.password = ?2")
+	List<Student> searchStudentByCredentials(String username, String password);
 }

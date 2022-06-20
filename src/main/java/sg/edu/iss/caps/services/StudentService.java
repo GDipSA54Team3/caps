@@ -24,9 +24,7 @@ public interface StudentService {
 	// returns a list of student that were searched by name
 	List<Student> returnStudentByName(String name);
 
-	// update grade
-	// void Updategrade(String ID);
-
 	List<StudentCourse> findStudCoursesByStudId(String id);
 
+	List<Student> returnStudentByCredentials(String username, String password);
 }

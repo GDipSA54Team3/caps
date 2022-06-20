@@ -19,4 +19,5 @@ public interface CourseService {
 
 	List<Course> findCoursesByStudId(String id);
 
+    List<Course> getCoursesByLecturerId(String lecturerId); 
 }

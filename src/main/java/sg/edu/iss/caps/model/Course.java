@@ -26,7 +26,7 @@ public class Course {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique=true)
 	private String courseName;
 	
 	@Column(nullable = false, length = 1000)

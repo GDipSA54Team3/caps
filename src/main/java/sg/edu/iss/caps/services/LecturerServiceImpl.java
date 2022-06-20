@@ -2,6 +2,7 @@ package sg.edu.iss.caps.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,6 @@ public class LecturerServiceImpl implements LecturerService {
 			
 		return lec;
 	}
-
 	@Override
 	public void deleteLecturerById(String id) {
 		// TODO Auto-generated method stub
@@ -55,7 +55,25 @@ public class LecturerServiceImpl implements LecturerService {
 		// TODO Auto-generated method stub
 		return lecrepo.searchLecturerByName(name);
 	}
+//	@Override
+//	public void assignLecturerToCourse(Lecturer lec,String courseid) {
+//		// TODO Auto-generated method stub
+//		lecrepo.save(lec);
+//		
+//	}
+//	@Override
+//	public void unassignLecturerFromCourse(String courseid, String lecturerid) {
+//		// TODO Auto-generated method stub
+//		lecrepo.deleteById(lecturerid);
+//	}
+
 	
+	
+	
+	@Override
+	public List<Lecturer> returnLecturerByCredentials(String username, String password) {
+		return lecrepo.searchLecturerByCredentials(username, password);
+	}
 
 
 }

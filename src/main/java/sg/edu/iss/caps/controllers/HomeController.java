@@ -10,9 +10,17 @@ public class HomeController{
 	
 
 	@RequestMapping("/")
-	public String viewHomePage(Model model) {
+	public String viewHomePage(Model model, HttpSession session) {
+		
+		LoginUser user = new LoginUser("", "", Role.TO_LOGIN);
+		LoginBag lb = new LoginBag(user);
+		
+		System.out.println(lb.getLoggeduser().getUsername());
+		
+		model.addAttribute("user", user);
+		session.setAttribute("loggeduser", lb);
+		
 		return "home";
 	}
-	
 
 }

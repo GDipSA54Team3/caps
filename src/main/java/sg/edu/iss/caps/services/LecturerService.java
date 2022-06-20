@@ -23,4 +23,6 @@ public interface LecturerService {
 	
 	//returns a list of employees that were searched by name
 	List<Lecturer> returnLecturerByName(String name);
+	
+	List<Lecturer> returnLecturerByCredentials(String username, String password);
 }
