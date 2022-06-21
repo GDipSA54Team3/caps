@@ -10,6 +10,7 @@ public class LoginUser {
 	private String userId;
 	private String username;
 	private String password;
+	private String name;
 	private Role role;
 	
 	public LoginUser(String username, String password, Role role) {
