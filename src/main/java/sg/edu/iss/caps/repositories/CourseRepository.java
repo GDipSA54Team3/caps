@@ -15,7 +15,6 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 	@Query("select c from Course c where c.courseName like %:name%")
 	List<Course> findCoursesByName(String name);
 
-	
 	@Query("select c from Course c where c.courseName like %?1%")
 	List<Course> searchCourseByName(String name);
 	

@@ -1,13 +1,9 @@
 package sg.edu.iss.caps.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Course;
@@ -19,10 +15,10 @@ public class CourseServiceImpl implements CourseService {
 
 	@Autowired
 	private CourseRepository courepo;
-	
+
 	@Autowired
 	private StudentRepository studRepo;
-	
+
 	@Override
 	public List<Course> getAllCourse() {
 		// TODO Auto-generated method stub
@@ -39,16 +35,16 @@ public class CourseServiceImpl implements CourseService {
 	public Course getCourseById(String id) {
 		// TODO Auto-generated method stub
 		Optional<Course> optional = courepo.findById(id);
-		Course course= null;
+		Course course = null;
 
-		if(optional.isPresent()){
+		if (optional.isPresent()) {
 			course = optional.get();
 		} else {
 			throw new RuntimeException("Course not found.");
 		}
 
 		return course;
-	
+
 	}
 
 	@Override
@@ -68,15 +64,22 @@ public class CourseServiceImpl implements CourseService {
 		return studRepo.findCoursesByStudId(id);
 	}
 
-
-
-	
 	@Override
-	public  List<Course> getCoursesByLecturerId(String lecturerId)  {
-		
+	public List<Course> getCoursesByLecturerId(String lecturerId) {
+
 		List<Course> clist = courepo.getCoursesByLecturerId(lecturerId);
-		
+
 		return clist;
-	 }
-		
+	}
+
+	@Override
+	public int getEnrollCountByCourseId(String id) {
+		return getCourseById(id).getStudentCourses().size();
+	}
+
+	@Override
+	public boolean isCapacityOk(String courseId) {
+		return (getCourseById(courseId).getStudentCourses().size() < getCourseById(courseId).getMaxSize())? true : false;
+	}
+
 }

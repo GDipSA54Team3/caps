@@ -3,6 +3,8 @@ package sg.edu.iss.caps.controllers;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -15,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.iss.caps.exceptions.DuplicateException;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.model.LoginBag;
 import sg.edu.iss.caps.model.StudentCourse;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.SortByCourseName;
 import sg.edu.iss.caps.utilities.SortByStudCourseName;
-import sg.edu.iss.caps.utilities.SortByStudentName;
 
 @Controller
 @RequestMapping("/student")
@@ -37,68 +38,47 @@ public class StudentController {
 	@Autowired
 	private StudentService studServ;
 
-	@GetMapping("/main")
-	public String mainPage() {
-		return "studenthome";
-	}
-
-	@GetMapping("/selectStudentForReg")
-	public String selectStudentForReg(Model model) {
-		List<Student> studList = studServ.getAllStudents();
-		Collections.sort(studList, new SortByStudentName());
-		model.addAttribute("studentList", studList);
-		return "studentcourselist";
-	}
-
-	@PostMapping("/courseList")
-	public String showCourseList(Model model, @Param("id") String id) {
-		List<Student> studList = studServ.getAllStudents();
-		Collections.sort(studList, new SortByStudentName());
-		model.addAttribute("studentList", studList);
+	@GetMapping("/courseList")
+	public String showCourseList(Model model, HttpSession session) {
+		LoginBag user = (LoginBag) session.getAttribute("loggeduser");
 		List<Course> courseList = courseServ.getAllCourse();
 		Collections.sort(courseList, new SortByCourseName());
 		model.addAttribute("listCourses", courseList);
-		model.addAttribute("selectedStudent", studServ.getStudentById(id));
-		model.addAttribute("studRegisteredCourses", courseServ.findCoursesByStudId(id));
+		model.addAttribute("student", studServ.getStudentById(user.getLoggeduser().getUserId()));
+		model.addAttribute("studRegisteredCourses", courseServ.findCoursesByStudId(user.getLoggeduser().getUserId()));
 		return "studentcourselist";
 	}
 
-//	@PostMapping("/searchCourseList")
-//	public String searchCourse(Model model, @Param("search") String search) {
-//		model.addAttribute("listCourses", cs.getAllCourse());
-//		model.addAttribute("listCourses", cs.findCoursesByName(search));
-//		return "studentcourselist";
-//	}
+	@PostMapping("/searchCourseList")
+	public String searchCourse(Model model, @Param("search") String search, HttpSession session) {
+		LoginBag user = (LoginBag) session.getAttribute("loggeduser");
+		model.addAttribute("listCourses", courseServ.getAllCourse());
+		List<Course> courseList = courseServ.findCoursesByName(search);
+		Collections.sort(courseList, new SortByCourseName());
+		model.addAttribute("listCourses", courseList);
+		model.addAttribute("student", studServ.getStudentById(user.getLoggeduser().getUserId()));
+		model.addAttribute("studRegisteredCourses", courseServ.findCoursesByStudId(user.getLoggeduser().getUserId()));
+		return "studentcourselist";
+	}
 
 	@GetMapping("/registerCourse/{studentId}/{courseId}")
 	public String regCourse(Model model, @PathVariable("courseId") String courseId, @PathVariable("studentId") String studentId) throws DuplicateException {
 		List<Course> studentRegCourses = courseServ.findCoursesByStudId(studentId);
-		if (!studentRegCourses.contains(courseServ.getCourseById(courseId))) {
+		if (!studentRegCourses.contains(courseServ.getCourseById(courseId)) && courseServ.isCapacityOk(courseId)) {
 			StudentCourse sc = new StudentCourse(studServ.getStudentById(studentId), courseServ.getCourseById(courseId), CourseStatus.ENROLLED);
 			studCourseServ.newStudentCourse(sc);
 		} else {
-			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\" \n\n", courseServ.getCourseById(courseId).getCourseName()));
+			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\" or course is fully booked \n\n", courseServ.getCourseById(courseId).getCourseName()));
 		}
-		return "redirect:/student/selectStudentForReg";
+		return "redirect:/student/courseList";
 	}
 
-	@GetMapping("/findMyCourses")
-	public String myCourses(Model model) {
-		List<Student> studList = studServ.getAllStudents();
-		Collections.sort(studList, new SortByStudentName());
-		model.addAttribute("studentList", studList);;
-		return "studentcourses";
-	}
-
-	@PostMapping("/myCourses")
-	public String myCourses(@Param("id") String id, Model model) {
-		List<Student> studList = studServ.getAllStudents();
-		Collections.sort(studList, new SortByStudentName());
-		model.addAttribute("studentList", studList);
-		List<StudentCourse> studCourseList = studServ.findStudCoursesByStudId(id);
+	@GetMapping("/myCourses")
+	public String myCourses(HttpSession session, Model model) {
+		LoginBag user = (LoginBag) session.getAttribute("loggeduser");
+		List<StudentCourse> studCourseList = studServ.findStudCoursesByStudId(user.getLoggeduser().getUserId());
 		Collections.sort(studCourseList, new SortByStudCourseName());
 		model.addAttribute("studentCourses", studCourseList);
-		model.addAttribute("selectedStudent", studServ.getStudentById(id));
 		return "studentcourses";
 	}
 	
@@ -106,6 +86,6 @@ public class StudentController {
 	@GetMapping("/deleteEnrollment/{studCourseId}")
 	public String deleteEnrollment(@PathVariable("studCourseId") String studCourseId) {
 		studCourseServ.removeStudentCourseById(studCourseId);
-		return "redirect:/student/findMyCourses";
+		return "redirect:/student/myCourses";
 	}
 }

@@ -1,8 +1,14 @@
 package sg.edu.iss.caps.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import sg.edu.iss.caps.model.LoginBag;
+import sg.edu.iss.caps.model.LoginUser;
+import sg.edu.iss.caps.model.Role;
 
 
 @Controller

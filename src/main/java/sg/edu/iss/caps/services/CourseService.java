@@ -19,5 +19,9 @@ public interface CourseService {
 
 	List<Course> findCoursesByStudId(String id);
 
-    List<Course> getCoursesByLecturerId(String lecturerId); 
+    List<Course> getCoursesByLecturerId(String lecturerId);
+    
+    int getEnrollCountByCourseId(String id);
+    
+    boolean isCapacityOk(String courseId);
 }

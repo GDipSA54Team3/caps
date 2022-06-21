@@ -44,8 +44,8 @@
 				
 				<div th:case="${T(sg.edu.iss.caps.model.Role).STUDENT}"><!--th:if="${user is student}"-->
 					<div style="padding-top: 10%;">
-						<a href="#">My Courses</a>
-						<a href="#">Enroll a Class</a>
+						<a th:href="@{/student/myCourses}">My Courses</a>
+						<a th:href="@{/student/courseList}">Enroll a Class</a>
 						<a href="#">CGPA Calculator</a>
 						<a th:href="@{/log/logout}">Logout</a>
 					</div>
@@ -86,7 +86,6 @@
 	
 	<div th:fragment="admin-banner" id="admin-banner">
 		
-			<h1>Manage Lecturers</h1>
 	</div>
 </body>
 </html>
