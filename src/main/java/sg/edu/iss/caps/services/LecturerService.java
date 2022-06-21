@@ -2,6 +2,7 @@ package sg.edu.iss.caps.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Lecturer;
@@ -25,4 +26,6 @@ public interface LecturerService {
 	List<Lecturer> returnLecturerByName(String name);
 	
 	List<Lecturer> returnLecturerByCredentials(String username, String password);
+	
+	//Page<Lecturer> findPaginated(int pageNo, int pageSize);
 }

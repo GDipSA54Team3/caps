@@ -50,10 +50,11 @@ public class LoginController {
 			System.out.println(admin.getFirstName());
 			user.setRole(Role.ADMIN);
 			user.setUserId(admin.getId());
+			user.setName(admin.getFirstName());
 			LoginBag lb = new LoginBag(user);
 			session.setAttribute("loggeduser", lb);
 
-			return "redirect:/admin/manage-lecturers";
+			return "redirect:/admin/home";
 		}
 		System.out.println("No Admin");
 		
@@ -68,6 +69,7 @@ public class LoginController {
 			System.out.println(student.getFirstName());
 			user.setRole(Role.STUDENT);
 			user.setUserId(student.getId());
+			user.setName(student.getFirstName());
 			LoginBag lb = new LoginBag(user);
 			session.setAttribute("loggeduser", lb);
 
@@ -87,6 +89,7 @@ public class LoginController {
 			System.out.println(lec.getFirstName());
 			user.setRole(Role.LECTURER);
 			user.setUserId(lec.getId());
+			user.setName(lec.getFirstName());
 			LoginBag lb = new LoginBag(user);
 			session.setAttribute("loggeduser", lb);
 
@@ -122,5 +125,7 @@ public class LoginController {
 		model.addAttribute("user", new LoginUser(Role.TO_LOGIN));
 	}
 	
-	
+	public void checkCurrentPage(Model model, AppPage currModule) {
+		model.addAttribute("currentMod", currModule);
+	}
 }

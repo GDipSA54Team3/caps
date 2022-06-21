@@ -30,6 +30,11 @@ public class HomeController extends TemplateController{
 	@RequestMapping("/")
 	public String viewHomePage(Model model, HttpSession session) {
 		
+		if (session != null && session.getAttribute("loginToken") != null){
+			   //do something
+			session.invalidate();
+		}
+		
 		LoginUser user = new LoginUser("", "", Role.TO_LOGIN);
 		LoginBag lb = new LoginBag(user);
 		
@@ -40,5 +45,7 @@ public class HomeController extends TemplateController{
 		
 		return "home";
 	}
-
+	
+	
+	
 }

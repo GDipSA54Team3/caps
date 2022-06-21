@@ -24,16 +24,27 @@
 		<button class = "btn btn-link" style="margin: 2vh;" onclick="window.history.back()">< Go Back</button>
 		<h1><span th:utext="${lecturer.firstName}"/> <span th:utext="${lecturer.lastName}"/></h1>
 		<h5>Username: <span th:utext="${lecturer.username}"/></h5>
-		<span>Courses Taught:</span><span th:utext="${lecturer.courses.size}"/>
 		
-		<div style="margin: 3% 0;">
+		<div style="margin-bottom: 3%;">
+		<!--
 			<table width="100%">
 				<tr>
 					<td>
-						<a th:href = "@{/admin/add-course-to-lecturer/{id}(id=${lecturer.id})}" class="btn btn-info" style="margin-right: 3%">Assign to a New Course</a>
+						<a th:href = "@{/admin/add-new-lecturer/}" class="btn btn-info" style="margin-right: 3%">Add a New Lecturer</a>
+					</td>
+					<td>
+						<form action="#" th:action="@{/admin/search-lecturers}" method="POST">
+							<table>
+								<tr>
+									<td style="width: 87%"><input type ="text" name="name" placeholder = "Search lecturer first or last name" class="form-control"></td>
+									<td style="padding-left: 3%"><button type="submit" class="btn btn-info">Search</button></td>
+								</tr>
+							</table>
+						</form>
 					</td>
 				</tr>
 			</table>
+			-->
 		</div>
 	
 		<table class="table table-striped table-form lists">
@@ -41,7 +52,6 @@
 			<tr>
 				<th>Course Name</th>
 				<th>Course Description</th>
-				<th>Capacity</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -50,21 +60,17 @@
 		<!-- 
 			to iterate through a list, use th:each = ""
 			inside the quotes: 
-				var_name : ${object_passed_from_controller} <- make sure this is a collection 
+			var_name : ${object_passed_from_controller} <- make sure this is a collection 
 		-->
-			<tr th:if="${#lists.isEmpty(listCourse)}">
-				<td colspan="4" style="text-align: center; font-weight: bolder;">No courses to display</td>
-			</tr>
-			<tr th:each="course : ${listCourse}">
+			<tr th:each="course : ${allCourses}">
 				<!--
 					use ${var_name.attribute} to access the attributes of the object
 				-->
 				<td th:text="${course.courseName}"></td>
 				<td th:text="${course.courseDescription}"></td>
-				<td th:text="${course.maxSize}"></td>
 				<td class="table-action">
-
-					<a th:href="@{/admin/delete-course-from-lecturer/{lec-id}/{course-id}(lec-id=${lecturer.id},course-id=${course.id})}" class="btn btn-danger">Unassign from Course</a>
+					<a th:if="${listLecCourse.contains(course)}">Already assigned to this course</a>
+					<a th:unless="${listLecCourse.contains(course)}" th:href="@{/admin/save-lecturer-to-course/{lec-id}/{course-id}(lec-id=${lecturer.id},course-id=${course.id})}" class="btn btn-primary">Assign Lecturer to this Course</a>
 				<!--
 					<a th:href="@{/admin/delete-lecturer/{id}(id=${lec.id})}" class="btn btn-danger">Delete</a>
 					<a th:href="@{/admin/view-lecturer-courses/{id}(id=${lec.id})}" class="btn btn-outline-secondary">[+] View Courses</a>

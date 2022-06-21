@@ -5,11 +5,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.transaction.Transactional;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -41,7 +43,7 @@ public class Lecturer {
 	@Column(nullable = false, length = 50, unique=true)
 	private String email;
 	
-	@ManyToMany (cascade = CascadeType.ALL)
+	@ManyToMany (cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinTable(name="lecturer_course",
 		joinColumns= @JoinColumn(name= "lecturer_Id"),
 		inverseJoinColumns= @JoinColumn(name="course_Id"))
