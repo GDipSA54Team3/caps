@@ -57,11 +57,13 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public List<Course> findCoursesByName(String name) {
 		return courepo.findCoursesByName(name);
+	}
+	
+	@Override
 	public List<Course> returnCourseByName(String name) {
-		
+
 		List<Course> clist = courepo.searchCourseByName(name);
-		
-		
+
 		return clist;
 	}
 
@@ -85,16 +87,16 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public boolean isCapacityOk(String courseId) {
-		return (getCourseById(courseId).getStudentCourses().size() < getCourseById(courseId).getMaxSize())? true : false;
+		return (getCourseById(courseId).getStudentCourses().size() < getCourseById(courseId).getMaxSize()) ? true
+				: false;
 	}
 
-	 }
 	@Override
-	public List<Course> findByLecturerAndCourse(String lecturerId, String name ){
-		
-		List<Course> clist = courepo.findByLecturerAndCourse(lecturerId, "%"+name+"%");
-		
+	public List<Course> findByLecturerAndCourse(String lecturerId, String name) {
+
+		List<Course> clist = courepo.findByLecturerAndCourse(lecturerId, "%" + name + "%");
+
 		return clist;
 	}
-		
+
 }
