@@ -90,7 +90,7 @@ public class LecturerController {
 		List<Student> students = stuserv.getStudentByCourse(courseId);
 		model.addAttribute("listStudents", students);	
 			
-		return "leccourses";
+		return "home"; //Just temp only correct page us under devolopment
 	}
 
 }
