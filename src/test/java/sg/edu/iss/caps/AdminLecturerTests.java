@@ -1,20 +1,13 @@
 package sg.edu.iss.caps;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 import java.util.Random;
-import org.hamcrest.*;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.ClassOrderer.OrderAnnotation;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,11 +16,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.Lecturer;
-import sg.edu.iss.caps.repositories.CourseRepository;
-import sg.edu.iss.caps.repositories.LecturerRepository;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
-import lombok.*;
 
 
 @ExtendWith(SpringExtension.class)
