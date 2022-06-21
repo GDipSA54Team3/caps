@@ -18,4 +18,8 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 	
 	 @Query("select c from Course c join fetch c.lecturers l WHERE l.id = :lecId")
 		public  List<Course> getCoursesByLecturerId(@Param("lecId") String id);
+	 
+	 @Query("select c from Course c join fetch c.lecturers l WHERE l.id = :lecId and c.courseName like :courseName")
+	 public  List<Course> findByLecturerAndCourse(@Param("lecId") String id,  @Param("courseName") String name);
+	 
 }

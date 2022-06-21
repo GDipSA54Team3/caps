@@ -60,8 +60,11 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> returnCourseByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Course> clist = courepo.searchCourseByName(name);
+		
+		
+		return clist;
 	}
 	
 	@Override
@@ -71,5 +74,12 @@ public class CourseServiceImpl implements CourseService {
 		
 		return clist;
 	 }
+	@Override
+	public List<Course> findByLecturerAndCourse(String lecturerId, String name ){
+		
+		List<Course> clist = courepo.findByLecturerAndCourse(lecturerId, "%"+name+"%");
+		
+		return clist;
+	}
 		
 }
