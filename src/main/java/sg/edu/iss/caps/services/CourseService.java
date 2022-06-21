@@ -25,5 +25,7 @@ public interface CourseService {
 
 		List<Course> getCoursesByLecturerId(String lecturerId); 
 		
+		List<Course> findByLecturerAndCourse(String lecturerId, String name );
+		
 
 }

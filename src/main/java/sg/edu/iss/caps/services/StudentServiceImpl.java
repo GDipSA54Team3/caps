@@ -61,6 +61,12 @@ public class StudentServiceImpl implements StudentService {
 		// TODO Auto-generated method stub
 		return studrepo.searchStudentByCredentials(username, password);
 	}
+	
+	@Override
+	public List<Student> getStudentByCourse(String courseId){
+		
+		return studrepo.getStudentByCourse(courseId);
+	}
 
 //update grade//
 

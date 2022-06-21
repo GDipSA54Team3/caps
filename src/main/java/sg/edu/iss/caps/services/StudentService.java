@@ -25,5 +25,7 @@ public interface StudentService {
 		List<Student> returnStudentByName(String name);
 		
 		List<Student> returnStudentByCredentials(String username, String password);
+		
+		List<Student> getStudentByCourse(String courseId);
 
 }

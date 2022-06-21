@@ -90,7 +90,7 @@ public class LoginController {
 			LoginBag lb = new LoginBag(user);
 			session.setAttribute("loggeduser", lb);
 
-			return "redirect:/admin/manage-lecturers";
+			return "redirect:/lecturer/view-courses";
 		}
 		System.out.println("No Lecturer");
 

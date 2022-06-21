@@ -25,4 +25,6 @@ public interface LecturerService {
 	List<Lecturer> returnLecturerByName(String name);
 	
 	List<Lecturer> returnLecturerByCredentials(String username, String password);
+	
+	
 }
