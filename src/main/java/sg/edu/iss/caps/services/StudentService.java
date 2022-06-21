@@ -28,4 +28,19 @@ public interface StudentService {
 		
 		List<Student> getStudentByCourse(String courseId);
 
+	// saving the student object in the database
+	void saveStudent(Student student);
+
+	// fetching one student using the id
+	Student getStudentById(String id);
+
+	// deleting a student in the database
+	void deleteStudentById(String id);
+
+	// returns a list of student that were searched by name
+	List<Student> returnStudentByName(String name);
+
+	List<StudentCourse> findStudCoursesByStudId(String id);
+
+	List<Student> returnStudentByCredentials(String username, String password);
 }

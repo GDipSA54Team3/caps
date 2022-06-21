@@ -71,7 +71,7 @@ public class LoginController {
 			LoginBag lb = new LoginBag(user);
 			session.setAttribute("loggeduser", lb);
 
-			return "redirect:/admin/manage-lecturers";
+			return "redirect:/student/myCourses";
 		}
 		System.out.println("No Student");
 		

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.model.StudentCourse;
 import sg.edu.iss.caps.repositories.StudentRepository;
 
 @Service
@@ -17,19 +18,16 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Override
 	public List<Student> getAllStudents() {
-		// TODO Auto-generated method stub
 		return studrepo.findAll();
 	}
 
 	@Override
 	public void saveStudent(Student student) {
-		// TODO Auto-generated method stub
 		this.studrepo.save(student);
 	}
 
 	@Override
 	public Student getStudentById(String id) {
-		// TODO Auto-generated method stub
 		Optional<Student> optional = studrepo.findById(id);
 		Student student = null;
 
@@ -45,17 +43,19 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public void deleteStudentById(String id) {
-		// TODO Auto-generated method stub
 		this.studrepo.deleteById(id);
 
 	}
 
 	@Override
 	public List<Student> returnStudentByName(String name) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public List<StudentCourse> findStudCoursesByStudId(String id) {
+		return getStudentById(id).getStudentCourses();
+	}
 	@Override
 	public List<Student> returnStudentByCredentials(String username, String password) {
 		// TODO Auto-generated method stub
@@ -67,7 +67,5 @@ public class StudentServiceImpl implements StudentService {
 		
 		return studrepo.getStudentByCourse(courseId);
 	}
-
-//update grade//
 
 }

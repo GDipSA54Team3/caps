@@ -3,29 +3,28 @@ package sg.edu.iss.caps.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import sg.edu.iss.caps.model.Course;
 
-import sg.edu.iss.caps.model.*;
-
-@Service
 public interface CourseService {
-	
-		List<Course> getAllCourse();
-		
-		void saveCourse(Course course);
-		
-		
-		Course getCourseById(String id);
-		
-		
-		void deleteCourseById(String id);
-		
-	
-		List<Course >returnCourseByName(String name);
 
 		List<Course> getCoursesByLecturerId(String lecturerId); 
 		
 		List<Course> findByLecturerAndCourse(String lecturerId, String name );
 		
 
+	void saveCourse(Course course);
+
+	Course getCourseById(String id);
+
+	void deleteCourseById(String id);
+
+	List<Course> findCoursesByName(String name);
+
+	List<Course> findCoursesByStudId(String id);
+
+    List<Course> getCoursesByLecturerId(String lecturerId);
+    
+    int getEnrollCountByCourseId(String id);
+    
+    boolean isCapacityOk(String courseId);
 }

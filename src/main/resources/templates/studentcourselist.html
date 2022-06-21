@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Application Processing System</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
+
+</head>
+<body>
+	<div th:insert="fragments/layout.html:: header"></div>
+	<div th:insert="fragments/layout.html:: sidebar"></div>
+
+	<div class="container inside">
+
+		<h1>Available Courses</h1>
+
+		<form action="#" th:action="@{/student/searchCourseList}"
+			method="post">
+			<table>
+				<tr>
+					<td style="width: 85%"><input type="text" name="search"
+						placeholder="Search course name" class="form-control"></td>
+					<td style="padding-left: 3%"><button type="submit"
+							class="btn btn-info">Search</button></td>
+				</tr>
+			</table>
+		</form>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Course Name</th>
+					<th>Course Description</th>
+					<!-- <th>Start Date</th>
+					<th>End Date</th> -->
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="course : ${listCourses}">
+					<td th:text="${course.courseName}"></td>
+					<td th:text="${course.courseDescription}"></td>
+					<!-- <td th:text="${course.startDate}"></td>
+					<td th:text="${course.endDate}"></td> -->
+					<td th:if="${!#lists.contains(studRegisteredCourses, course)} and ${#lists.size(course.studentCourses)} < ${course.maxSize}">
+						<button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal" data-target="#registerModalCenter">Register</button>
+						<!-- Modal -->
+						<div class="modal fade" id="registerModalCenter" tabindex="-1" role="dialog" aria-labelledby="registerModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="registerModalCenterTitle">Register for...</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p th:text="${course.courseName}"></p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<a class="btn btn-primary" th:href="@{/student/registerCourse/}+${student.id}+@{/}+${course.id}">Confirm</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<!-- <td th:if="${!#lists.contains(studRegisteredCourses, course)} and ${#lists.size(course.studentCourses)} < ${course.maxSize}"><a class="btn btn-primary btn-block mb-3" th:href="@{/student/registerCourse/}+${student.id}+@{/}+${course.id}">Register</a></td> -->
+					<td th:if="${#lists.contains(studRegisteredCourses, course)}"><a class="btn btn-primary btn-block mb-3 disabled">Enrolled</a></td>
+					<td th:if="${!#lists.contains(studRegisteredCourses, course)} and ${#lists.size(course.studentCourses)} == ${course.maxSize}"><a class="btn btn-primary btn-block mb-3 disabled">Full</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>
