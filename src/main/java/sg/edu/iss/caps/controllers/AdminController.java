@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import sg.edu.iss.caps.exceptions.DuplicateException;
+import sg.edu.iss.caps.model.AppPage;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
 import sg.edu.iss.caps.model.Lecturer;
@@ -54,7 +53,7 @@ public class AdminController {
 	private CourseService couserv;
 	
 	@Autowired
-	private StudentService studServ;
+	private StudentService studserv;
 	
 	@Autowired
 	private StudentCourseService studCourseServ;
@@ -294,10 +293,10 @@ public class AdminController {
 	//ENROLLMENT METHODS STARTS HERE
 	@GetMapping("/view-student-courses/{courseId}")
 	public String viewStudCourses(@PathVariable("courseId") String courseId, Model model) {
-		List<Student> listStudent = studServ.getAllStudents();
+		List<Student> listStudent = studserv.getAllStudents();
 		Collections.sort(listStudent, new SortByStudentName());
 		model.addAttribute("listStudent", listStudent);
-		model.addAttribute("listExistStudent", studServ.getStudentByCourse(courseId));
+		model.addAttribute("listExistStudent", studserv.getStudentByCourse(courseId));
 		List<StudentCourse> listStudCourse = couserv.getStudCoursesByCourseId(courseId);
 		model.addAttribute("listStudCourse", listStudCourse);
 		model.addAttribute("course", couserv.getCourseById(courseId));
@@ -307,7 +306,7 @@ public class AdminController {
 	@PostMapping("/enroll-student")
 	public String enrollStudent(@Param("selectedStudentId") String selectedStudentId, @Param("courseId") String courseId) throws DuplicateException {
 		if (couserv.isCapacityOk(courseId)) {
-			StudentCourse sc = new StudentCourse(studServ.getStudentById(selectedStudentId), couserv.getCourseById(courseId), CourseStatus.ENROLLED);
+			StudentCourse sc = new StudentCourse(studserv.getStudentById(selectedStudentId), couserv.getCourseById(courseId), CourseStatus.ENROLLED);
 			studCourseServ.newStudentCourse(sc);
 		} else {
 			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\" or course is fully booked \n\n", couserv.getCourseById(courseId).getCourseName()));
