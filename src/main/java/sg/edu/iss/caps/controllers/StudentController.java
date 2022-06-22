@@ -84,7 +84,6 @@ public class StudentController {
 			model.addAttribute("gpa", "Not available");
 		}else {
 			model.addAttribute("gpa", cgpa.calculateGpa(user.getLoggeduser().getUserId(), studCourseList));
-			System.out.println(cgpa.calculateGpa(user.getLoggeduser().getUserId(), studCourseList));
 		}
 		return "studentcourses";
 	}
