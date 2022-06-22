@@ -27,6 +27,10 @@
 				<p th:if="${#fields.hasErrors('courseDescription')}" th:errors="*{courseDescription}"></p>
 			</fieldset>
 			<fieldset class="mb-4">
+				Credit units:<input type ="number" th:field = "*{creditUnit}" class="form-control col-4" min="2" max="16" value="1">
+				<p th:if="${#fields.hasErrors('creditUnit')}" th:errors="*{creditUnit}"></p>
+			</fieldset>
+			<fieldset class="mb-4">
 				Start date:<input type ="date" th:field = "*{startDate}" th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}" placeholder = "dd-MM-yyyy" class="form-control col-4">
 				<p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
 			</fieldset>
@@ -34,7 +38,9 @@
 				End date:<input type ="date" th:field = "*{endDate}" th:text="${#dates.format(course.endDate, 'dd-MM-yyyy')}" placeholder = "dd-MM-yyyy" class="form-control col-4">
 				<p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
 			</fieldset>
-			<input type ="number" th:field = "*{maxSize}" class="form-control mb-4 col-4" min="1" max="100" value="1">
+			<fieldset class="mb-4">
+				Course size:<input type ="number" th:field = "*{maxSize}" class="form-control col-4" min="1" max="100" value="1">
+			</fieldset>
 			<button type="submit" class="btn btn-info col-2">Save</button>
 		</form>	
 		

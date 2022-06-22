@@ -39,6 +39,7 @@
 				<tr>
 					<th>Course name</th>
 					<th>Description</th>
+					<th>Credit units</th>
 					<th>Start date</th>
 					<th>End date</th>
 					<th>Class size</th>
@@ -50,6 +51,7 @@
 				<tr th:each="course : ${listCourse}">
 					<td th:text="${course.courseName}"></td>
 					<td th:text="${course.courseDescription}"></td>
+					<td th:text="${course.creditUnit}"></td>
 					<td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}"></td>
 					<td th:text="${#dates.format(course.endDate, 'dd-MM-yyyy')}"></td>
 					<td th:text="${course.maxSize}"></td>

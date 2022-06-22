@@ -22,6 +22,7 @@ import sg.edu.iss.caps.model.StudentCourse;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
+import sg.edu.iss.caps.utilities.CalculateGPA;
 import sg.edu.iss.caps.utilities.SortByCourseName;
 import sg.edu.iss.caps.utilities.SortByStudCourseName;
 
@@ -37,6 +38,9 @@ public class StudentController {
 
 	@Autowired
 	private StudentService studServ;
+	
+	@Autowired
+	private CalculateGPA cgpa;
 
 	@GetMapping("/courseList")
 	public String showCourseList(Model model, HttpSession session) {
@@ -79,6 +83,12 @@ public class StudentController {
 		List<StudentCourse> studCourseList = studServ.findStudCoursesByStudId(user.getLoggeduser().getUserId());
 		Collections.sort(studCourseList, new SortByStudCourseName());
 		model.addAttribute("studentCourses", studCourseList);
+		double gpa = cgpa.calculateGpa(user.getLoggeduser().getUserId(), studCourseList);
+		if (studCourseList.isEmpty()) {
+			model.addAttribute("gpa", "Not available");
+		}else {
+			model.addAttribute("gpa", gpa);
+		}
 		return "studentcourses";
 	}
 	
