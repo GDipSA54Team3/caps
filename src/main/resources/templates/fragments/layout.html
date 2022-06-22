@@ -78,6 +78,9 @@
 							<button type = "submit" class = "btn btn-primary">Login</button>
 						</form>
 					</div>
+					<div th:if="${LoginError != null}" class="alert alert-danger" style=" margin: 10px;">
+						<span style="font-size:0.9rem; word-wrap:normal;" th:utext="${LoginError.message[0]}"></span>
+					</div>
 				</div>
 
 		</div>

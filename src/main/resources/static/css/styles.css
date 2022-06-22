@@ -37,6 +37,7 @@ body {
 
 .sidenav {
 	  min-width:200px; /* Set the width of the sidebar */
+	  max-width: 200px;
 	  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
 	  top: 0; /* Stay at the top */
 	  left: 0;
