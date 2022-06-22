@@ -36,7 +36,7 @@ import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.EmailEditor;
 import sg.edu.iss.caps.utilities.SortByCourseName;
-import sg.edu.iss.caps.utilities.SortByLecturerName;
+//import sg.edu.iss.caps.utilities.SortByLecturerName;
 import sg.edu.iss.caps.utilities.SortByStudentName;
 
 
@@ -92,7 +92,7 @@ public class AdminController {
 	@RequestMapping("/manage-lecturers")
 	public String viewManageLecturers(Model model) {
 		List<Lecturer> listLecturers = lecserv.getAllLecturers();
-		Collections.sort(listLecturers, new SortByLecturerName());
+		//Collections.sort(listLecturers, new SortByLecturerName());
 		model.addAttribute("listLecturers", listLecturers);
 	
 		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));

@@ -25,17 +25,17 @@
 		
 		<form action="#" th:action="@{/admin/save-lecturer}" th:object = "${lecturer}" method="POST">
 			<input type ="text" th:field = "*{firstName}" placeholder = "Lecturer's' First Name"
-			class="form-control mb-4 col-4">
+			class="form-control mb-4 col-4" required>
 			<input type ="text" th:field = "*{lastName}" placeholder = "Lecturer's Last Name"
-			class="form-control mb-4 col-4">
+			class="form-control mb-4 col-4" required>
 			<input type ="text" th:field = "*{email}" placeholder = "Employee Email"
-			class="form-control mb-4 col-4">
+			class="form-control mb-4 col-4" required>
 			
 			<input type ="text" th:field = "*{username}" placeholder = "Employee Username"
-			class="form-control mb-4 col-4">
+			class="form-control mb-4 col-4" required>
 			
 			<input type ="text" th:field = "*{password}" placeholder = "Employee Password"
-			class="form-control mb-4 col-4">
+			class="form-control mb-4 col-4" required>
 			
 			<!-- 
 				the submit button calls the method referred to by the form when clicked.
