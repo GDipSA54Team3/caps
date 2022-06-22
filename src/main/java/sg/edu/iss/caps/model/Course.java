@@ -45,6 +45,7 @@ public class Course {
 	@Column(nullable = false)
 	private int creditUnit;
 	
+	@NotNull
 	@Column(nullable = false)
 	private int maxSize;
 	
@@ -70,9 +71,10 @@ public class Course {
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
 		this.maxSize = maxSize;
+		this.creditUnit = creditUnit;
 	}
 
-	public Course(String courseName, String courseDescription, int maxSize, Date startDate,
+	public Course(String courseName, String courseDescription, int maxSize, int creditUnit, Date startDate,
 			Date endDate) {
 		super();
 		this.courseName = courseName;

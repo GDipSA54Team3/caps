@@ -13,26 +13,26 @@
 	<div class="container inside">
 
 		<h1>My Courses</h1>
-
+		<p th:text="'Current GPA : '+${gpa}"></p>
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Course Name</th>
+					<th>Credit units</th>
 					<th>Status</th>
 					<th>Grade</th>
-					<!-- <th>Start Date</th>
-					<th>End Date</th> -->
-					<th>(Testing only)</th>
+					<th>Start Date</th>
+					<th>End Date</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="studCourse : ${studentCourses}">
 					<td th:text="${studCourse.course.courseName}"></td>
+					<td th:text="${studCourse.course.creditUnit}"></td>
 					<td th:text="${studCourse.courseStatus}"></td>
 					<td th:text="${studCourse.grade}"></td>
-					<!-- <td th:text="${course.startDate}"></td>
-					<td th:text="${course.endDate}"></td> -->
-					<td><a class="btn btn-danger mb-3" th:href="@{/student/deleteEnrollment/}+${studCourse.id}">Delete</a></td>
+					<td th:text="${studCourse.course.startDate}"></td>
+					<td th:text="${studCourse.course.endDate}"></td>
 				</tr>
 			</tbody>
 		</table>
