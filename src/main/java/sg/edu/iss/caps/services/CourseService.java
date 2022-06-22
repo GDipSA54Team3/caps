@@ -33,4 +33,7 @@ public interface CourseService {
 	List<StudentCourse> getStudCoursesByCourseId(String id);
 	
 //	Llist<Course> testPagination
+	
+	 double getCreditUnit(String courseId);
+	
 }

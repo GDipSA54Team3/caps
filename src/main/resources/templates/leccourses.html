@@ -23,7 +23,7 @@
 
 	
 	<div class="container inside">
-		<div th:fragment="lecturer-banner" id="admin-banner">
+		<div th:fragment="lecturer-banner" id="lecturer-banner">
 		
 			<h1>View My Courses</h1>
 		</div>
@@ -44,8 +44,7 @@
 			</table>
 		</div>
 	
-			<div>
-			
+			<div>			
 			<p><b>Total courses :
 			<span th:text= "${listCourses.size()}", class="text-danger"></span></b></p>				
 			</div>
