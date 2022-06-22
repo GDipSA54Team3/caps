@@ -1,6 +1,5 @@
 package sg.edu.iss.caps.controllers;
 
-import java.beans.PropertyEditorSupport;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,10 +29,7 @@ import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.LoginUser;
 import sg.edu.iss.caps.model.Role;
 import sg.edu.iss.caps.model.Student;
-<<<<<<< Updated upstream
 import sg.edu.iss.caps.model.StudentCourse;
-=======
->>>>>>> Stashed changes
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 import sg.edu.iss.caps.services.StudentCourseService;
@@ -399,59 +395,51 @@ public class AdminController {
 	}
 
 	//ok
-	  @PostMapping("/save-student")
-	  public String saveStudent(@ModelAttribute("student") Student student) {
-		  studserv.saveStudent(student);
+	@PostMapping("/save-student")
+	public String saveStudent(@ModelAttribute("student") Student student) {
+		studserv.saveStudent(student);
 	  
-	  //redirect: -> sends user to another page (in this case, the home page)
-		  return "redirect:/admin/manage-students"; 
-	  }
+		//redirect: -> sends user to another page (in this case, the home page)
+		return "redirect:/admin/manage-students"; 
+	}
 	  
 
-	  @GetMapping("/update-student/{id}")
-	  public String updateStudent(@PathVariable(value = "id") String id, Model model) {
-	  
-		  Student student = studserv.getStudentById(id);  
-		  model.addAttribute("student", student);
-		  
-		  return "updatestudent";
-	  }
+	@GetMapping("/update-student/{id}")
+	public String updateStudent(@PathVariable(value = "id") String id, Model model) {
+		Student student = studserv.getStudentById(id);  
+		model.addAttribute("student", student);
+		return "updatestudent";
+	}
 	  
 	  
 	  
-	  //ok
-	  @GetMapping("/delete-student/{id}") 
-	  public String deleteStudent (@PathVariable(value = "id") String id, Model model) {
+	//ok
+	@GetMapping("/delete-student/{id}") 
+	public String deleteStudent (@PathVariable(value = "id") String id, Model model) {
 	  
-		  studserv.deleteStudentById(id);
+		studserv.deleteStudentById(id);
 	  
-		  return "redirect:/admin/manage-students"; 
-	  }
+		return "redirect:/admin/manage-students"; 
+	}
 	  
-	  public String searchStudent(@Param("name") String name, Model model) {
-	  
-	  
-	  List<Student> listStudents = studserv.returnStudentByName(name);
-	  
-	  
-	  model.addAttribute("listStudents", listStudents);
+	public String searchStudent(@Param("name") String name, Model model) {
+		List<Student> listStudents = studserv.returnStudentByName(name);
+		model.addAttribute("listStudents", listStudents);
+		return "index";
+	}
 	  
 	  
-	  return "index";
-	  }
-	  
-	  
-	  @PostMapping("/search-students")
-		public String searchStudents(@Param("name") String name, Model model) {
-			List<Student> listStudents = studserv.returnStudentByName(name);
+	@PostMapping("/search-students")
+	public String searchStudents(@Param("name") String name, Model model) {
+		List<Student> listStudents = studserv.returnStudentByName(name);
 			
-			model.addAttribute("listStudents", listStudents);
+		model.addAttribute("listStudents", listStudents);
 			
-			//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-			//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
-			 return "managestudents";
-			//return "index";
-		}
+		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+		return "managestudents";
+		//return "index";
+	}
 	  
 	  
 	  
