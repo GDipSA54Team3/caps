@@ -7,14 +7,13 @@
 <link rel="stylesheet" th:href="@{/css/styles.css}">
 <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
-
 </head>
 <body>
 	<div th:insert="fragments/layout.html:: header"></div>
 	<div th:insert="fragments/layout.html:: sidebar"></div>
 
 	<div class="container inside">
-
+		<div th:insert="fragments/layout.html:: admin-banner"></div>
 		<h1>Available Courses</h1>
 
 		<form action="#" th:action="@{/student/searchCourseList}"

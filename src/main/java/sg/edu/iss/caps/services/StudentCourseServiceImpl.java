@@ -1,5 +1,7 @@
 package sg.edu.iss.caps.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,22 @@ public class StudentCourseServiceImpl implements StudentCourseService {
 	@Override
 	public void removeStudentCourseById(String id) {
 		studCourseRepo.deleteById(id);
+	}
+	
+	public void removeallStudentCourse() {
+		studCourseRepo.deleteAll();
+	}
+
+	@Override
+	public StudentCourse getStudentCourseById(String id) {
+		Optional<StudentCourse> optional = studCourseRepo.findById(id);
+		StudentCourse studentCourse = null;
+		if(optional.isPresent()){
+			studentCourse = optional.get();
+		} else {
+			throw new RuntimeException("StudentCourse not found.");
+		}
+		return studentCourse;
 	}
 
 }

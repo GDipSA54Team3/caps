@@ -4,6 +4,7 @@ package sg.edu.iss.caps.services;
 import java.util.List;
 
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.StudentCourse;
 
 public interface CourseService {
 
@@ -28,4 +29,8 @@ public interface CourseService {
 	boolean isCapacityOk(String courseId);
 	
 	List<Course> returnCourseByName(String name);
+	
+	List<StudentCourse> getStudCoursesByCourseId(String id);
+	
+//	Llist<Course> testPagination
 }

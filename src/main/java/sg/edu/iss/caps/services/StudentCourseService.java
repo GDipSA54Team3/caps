@@ -7,5 +7,7 @@ public interface StudentCourseService {
 	void newStudentCourse(StudentCourse studentCourse);
 	
 	void removeStudentCourseById(String id);
+	
+	StudentCourse getStudentCourseById(String id);
 
 }

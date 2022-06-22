@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.StudentCourse;
 import sg.edu.iss.caps.repositories.CourseRepository;
 import sg.edu.iss.caps.repositories.StudentRepository;
 
@@ -97,6 +98,11 @@ public class CourseServiceImpl implements CourseService {
 		List<Course> clist = courepo.findByLecturerAndCourse(lecturerId, "%" + name + "%");
 
 		return clist;
+	}
+
+	@Override
+	public List<StudentCourse> getStudCoursesByCourseId(String id) {
+		return getCourseById(id).getStudentCourses();
 	}
 
 }
