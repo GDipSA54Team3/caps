@@ -36,6 +36,7 @@ import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.EmailEditor;
 import sg.edu.iss.caps.utilities.SortByCourseName;
+import sg.edu.iss.caps.utilities.SortByLecturerName;
 import sg.edu.iss.caps.utilities.SortByStudentName;
 
 
@@ -90,9 +91,12 @@ public class AdminController {
 	
 	@RequestMapping("/manage-lecturers")
 	public String viewManageLecturers(Model model) {
-		model.addAttribute("listLecturers", lecserv.getAllLecturers());
-		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+		List<Lecturer> listLecturers = lecserv.getAllLecturers();
+		Collections.sort(listLecturers, new SortByLecturerName());
+		model.addAttribute("listLecturers", listLecturers);
+	
+		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
 		return "managelecturers";
 	}
 	
@@ -378,7 +382,12 @@ public class AdminController {
 	//ok
 	@RequestMapping("/manage-students")
 	public String viewStudentPage(Model model) {
-		model.addAttribute("listStudents", studserv.getAllStudents());
+		
+		List<Student> listStudents = studserv.getAllStudents();
+		Collections.sort(listStudents, new SortByStudentName());
+		model.addAttribute("listStudents", listStudents);
+	
+	
 		return "managestudents";
 	}
 	
@@ -398,6 +407,7 @@ public class AdminController {
 	@PostMapping("/save-student")
 	public String saveStudent(@ModelAttribute("student") Student student) {
 		studserv.saveStudent(student);
+		
 	  
 		//redirect: -> sends user to another page (in this case, the home page)
 		return "redirect:/admin/manage-students"; 
