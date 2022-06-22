@@ -16,7 +16,7 @@ public class CalculateGPA {
 		double denominator = 0.0;
 		double gradePointMax = 5;
 		for (StudentCourse studCor : studCourseList) {
-			double creditUnit = 5; // corserv.getCreditUnit(studCor.getCourse().getId());
+			double creditUnit = studCor.getCourse().getCreditUnit();
 			double gradePoint = 0;
 			switch (studCor.getGrade()) {
 			case A:
