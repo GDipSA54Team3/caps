@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.*;
 
-@Service
+
 public interface StudentService {
 	// fetch all students in the database
 	List<Student> getAllStudents();

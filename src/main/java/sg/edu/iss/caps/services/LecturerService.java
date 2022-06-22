@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import sg.edu.iss.caps.model.Lecturer;
 
 
-@Service
+
 public interface LecturerService {
 	
 	List<Lecturer> getAllLecturers();

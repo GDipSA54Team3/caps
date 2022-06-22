@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.model.Admin;
 
-@Service
+
 public interface AdminService {
 	
 	List<Admin> getAllAdmin();

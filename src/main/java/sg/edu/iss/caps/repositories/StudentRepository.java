@@ -25,8 +25,8 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 	@Query("select s from Student s join s.studentCourses sc WHERE sc.course.id = :courseId")
 	List<Student> getStudentByCourse(String courseId);
 	 
-	//get the students currently taking the course (course status is ONGOING)
-	@Query("select s from Student s join s.studentCourses sc WHERE sc.course.id = :courseId and sc.courseStatus = 1")
+	//get the students currently taking the course (course status is ENROLLED)
+	@Query("select s from Student s join s.studentCourses sc WHERE sc.course.id = :courseId and sc.courseStatus = 0")
 	List<Student> getCurrentStudentsByCourse(@Param("courseId")  String courseId);
 
 	//return student list that has fistName or lastName contains the search string for a particular course
