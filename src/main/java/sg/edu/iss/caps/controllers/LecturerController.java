@@ -24,6 +24,7 @@ import sg.edu.iss.caps.repositories.CourseRepository;
 import sg.edu.iss.caps.repositories.StudentRepository;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.StudentService;
+import sg.edu.iss.caps.utilities.CalculateGPA;
 import sg.edu.iss.caps.utilities.SortByCourseName;
 import sg.edu.iss.caps.utilities.SortByStudCourseName;
 import sg.edu.iss.caps.utilities.SortByStudentName;
@@ -40,6 +41,9 @@ public class LecturerController {
 	
 	@Autowired
 	private StudentService stuserv;
+	
+	@Autowired
+	private CalculateGPA cgpa;
 	
 
 	//View all courses that a lecturer teach
@@ -128,7 +132,7 @@ public class LecturerController {
 		List<StudentCourse> studCourseList = stuserv.findStudCoursesByStudId(studentId);
 		
 		if (!studCourseList.isEmpty()) {
-		double gpa = calculateGpa(studentId, studCourseList);		
+		double gpa = cgpa.calculateGpa(studentId, studCourseList);		
 		model.addAttribute("studentCourses", studCourseList);
 		 model.addAttribute("gpa", gpa);		  
 		return "viewstudentprofile";
@@ -156,46 +160,5 @@ public class LecturerController {
 		return "searchstudentresults"; 		
 		
 	}	
-	//Calcutaing current GPA for a student
-	public Double calculateGpa (String studentId, List<StudentCourse> studCourseList) {
-		
-		double gpa = 0.0;
-		double numerator = 0.0;
-		double denominator = 0.0;
-		double gradePointMax = 5;
-			for (StudentCourse studCor : studCourseList) {
-				double creditUnit  = 5; //corserv.getCreditUnit(studCor.getCourse().getId());				
-				double gradePoint = 0;
-				
-				switch (studCor.getGrade()){					
-				case A:
-					gradePoint = 5;
-					break;
-				case B:
-					gradePoint = 4;
-					break;
-				case C:
-					gradePoint = 3;
-					break;
-				case D:
-					gradePoint = 2;
-					break;
-				case F:
-					gradePoint = 0;
-					break;
-				case NA:
-					gradePoint = 0;
-					break;			
-				}				
-				numerator += creditUnit*gradePoint;				
-				if (studCor.getGrade() != Grade.NA) {					
-					denominator += creditUnit*gradePointMax;
-				}
-				else {
-					denominator += 0;
-				}
-			}			
-			gpa = (numerator/denominator)*gradePointMax; 
-			return gpa;
-	}
+
 }

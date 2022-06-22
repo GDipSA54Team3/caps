@@ -45,7 +45,12 @@ public class CalculateGPA {
 				denominator += 0;
 			}
 		}
+		if (denominator != 0) {
 		gpa = (numerator / denominator) * gradePointMax;
 		return gpa;
+		}
+		else {
+			return 0.0;
+		}
 	}
 }

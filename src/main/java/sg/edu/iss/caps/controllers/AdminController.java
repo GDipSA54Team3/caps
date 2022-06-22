@@ -25,6 +25,7 @@ import sg.edu.iss.caps.exceptions.DuplicateException;
 import sg.edu.iss.caps.model.AppPage;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
+import sg.edu.iss.caps.model.Grade;
 import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.LoginUser;
 import sg.edu.iss.caps.model.Role;
@@ -329,7 +330,7 @@ public class AdminController {
 	@PostMapping("/enroll-student")
 	public String enrollStudent(@Param("selectedStudentId") String selectedStudentId, @Param("courseId") String courseId) throws DuplicateException {
 		if (couserv.isCapacityOk(courseId)) {
-			StudentCourse sc = new StudentCourse(studserv.getStudentById(selectedStudentId), couserv.getCourseById(courseId), CourseStatus.ENROLLED);
+			StudentCourse sc = new StudentCourse(studserv.getStudentById(selectedStudentId), couserv.getCourseById(courseId), Grade.NA, CourseStatus.ENROLLED);
 			studCourseServ.newStudentCourse(sc);
 		} else {
 			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\" or course is fully booked \n\n", couserv.getCourseById(courseId).getCourseName()));

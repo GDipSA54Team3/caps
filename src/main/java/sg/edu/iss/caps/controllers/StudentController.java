@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.iss.caps.exceptions.DuplicateException;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
+import sg.edu.iss.caps.model.Grade;
 import sg.edu.iss.caps.model.LoginBag;
 import sg.edu.iss.caps.model.StudentCourse;
 import sg.edu.iss.caps.services.CourseService;
@@ -69,7 +70,7 @@ public class StudentController {
 	public String regCourse(Model model, @PathVariable("courseId") String courseId, @PathVariable("studentId") String studentId) throws DuplicateException {
 		List<Course> studentRegCourses = courseServ.findCoursesByStudId(studentId);
 		if (!studentRegCourses.contains(courseServ.getCourseById(courseId)) && courseServ.isCapacityOk(courseId)) {
-			StudentCourse sc = new StudentCourse(studServ.getStudentById(studentId), courseServ.getCourseById(courseId), CourseStatus.ENROLLED);
+			StudentCourse sc = new StudentCourse(studServ.getStudentById(studentId), courseServ.getCourseById(courseId), Grade.NA, CourseStatus.ENROLLED);
 			studCourseServ.newStudentCourse(sc);
 		} else {
 			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\" or course is fully booked \n\n", courseServ.getCourseById(courseId).getCourseName()));
