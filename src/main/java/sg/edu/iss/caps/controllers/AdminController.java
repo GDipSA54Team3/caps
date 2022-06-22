@@ -22,15 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.exceptions.DuplicateException;
-import sg.edu.iss.caps.model.AppPage;
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseStatus;
-import sg.edu.iss.caps.model.Grade;
-import sg.edu.iss.caps.model.Lecturer;
-import sg.edu.iss.caps.model.LoginUser;
-import sg.edu.iss.caps.model.Role;
-import sg.edu.iss.caps.model.Student;
-import sg.edu.iss.caps.model.StudentCourse;
+import sg.edu.iss.caps.model.*;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 import sg.edu.iss.caps.services.StudentCourseService;

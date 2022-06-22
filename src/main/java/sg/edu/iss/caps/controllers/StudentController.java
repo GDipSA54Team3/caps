@@ -15,11 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.exceptions.DuplicateException;
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseStatus;
-import sg.edu.iss.caps.model.Grade;
-import sg.edu.iss.caps.model.LoginBag;
-import sg.edu.iss.caps.model.StudentCourse;
+import sg.edu.iss.caps.model.*;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
@@ -84,19 +80,12 @@ public class StudentController {
 		List<StudentCourse> studCourseList = studServ.findStudCoursesByStudId(user.getLoggeduser().getUserId());
 		Collections.sort(studCourseList, new SortByStudCourseName());
 		model.addAttribute("studentCourses", studCourseList);
-		double gpa = cgpa.calculateGpa(user.getLoggeduser().getUserId(), studCourseList);
 		if (studCourseList.isEmpty()) {
 			model.addAttribute("gpa", "Not available");
 		}else {
-			model.addAttribute("gpa", gpa);
+			model.addAttribute("gpa", cgpa.calculateGpa(user.getLoggeduser().getUserId(), studCourseList));
+			System.out.println(cgpa.calculateGpa(user.getLoggeduser().getUserId(), studCourseList));
 		}
 		return "studentcourses";
-	}
-	
-	//testing only
-	@GetMapping("/deleteEnrollment/{studCourseId}")
-	public String deleteEnrollment(@PathVariable("studCourseId") String studCourseId) {
-		studCourseServ.removeStudentCourseById(studCourseId);
-		return "redirect:/student/myCourses";
 	}
 }
