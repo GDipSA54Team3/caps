@@ -37,6 +37,10 @@ public class LoginController {
 			HttpSession session) 
 	{
 		if (bindingResult.hasErrors()) {
+			
+			String[] errmsg = {"Please enter a valid username or password."};
+			ErrorMessage errorMsg = new ErrorMessage(errmsg);
+			model.addAttribute("LoginError", errorMsg);
 			return "home";
 		}
 				
@@ -96,8 +100,11 @@ public class LoginController {
 			return "redirect:/lecturer/view-courses";
 		}
 		System.out.println("No Lecturer");
-
-		return "redirect:/";
+		
+		String[] errmsg = {"Please enter a valid username or password."};
+		ErrorMessage errorMsg = new ErrorMessage(errmsg);
+		model.addAttribute("LoginError", errorMsg);
+		return "home";
 	}
 	
 	@RequestMapping(value = "/logout")
