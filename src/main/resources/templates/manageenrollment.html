@@ -16,6 +16,7 @@
 		<div th:insert="fragments/layout.html:: admin-banner"></div>
 		<div style="margin-bottom: 3%;">
 			<h1 th:text="'Manage Enrollment For '+${course.courseName}"></h1>
+			<span th:utext = "${course.courseDescription}"></span>
 			<table width="100%">
 				<tr>
 					<td>

@@ -1,9 +1,11 @@
 package sg.edu.iss.caps.controllers;
 
+import java.beans.PropertyEditorSupport;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,7 +14,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +35,7 @@ import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
+import sg.edu.iss.caps.utilities.EmailEditor;
 import sg.edu.iss.caps.utilities.SortByCourseName;
 import sg.edu.iss.caps.utilities.SortByStudentName;
 
@@ -38,6 +43,12 @@ import sg.edu.iss.caps.utilities.SortByStudentName;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@InitBinder
+	public void initBind(WebDataBinder binder) {
+		binder.registerCustomEditor(Lecturer.class, "email", new EmailEditor());
+		binder.registerCustomEditor(Student.class, "email", new EmailEditor());
+	}
 	
 	@Autowired
 	private LoginController loginCon;
@@ -98,7 +109,16 @@ public class AdminController {
 	}
 	
 	@PostMapping("/save-lecturer")
-	public String saveLecturer(@ModelAttribute("lecturer") Lecturer lecturer) {
+	public String saveLecturer(@Valid @ModelAttribute("lecturer") Lecturer lecturer, BindingResult result, 
+			Model model, HttpServletRequest request){
+		
+		if (result.hasErrors()) {
+			System.out.println("error thrown");
+			String referer = request.getHeader("Referer");
+			model.addAttribute("error", "nullval");
+		    return "redirect:" + referer;
+		}
+		
 		lecserv.saveLecturer(lecturer);
 		return "redirect:/admin/manage-lecturers";
 	}
@@ -114,7 +134,6 @@ public class AdminController {
 		model.addAttribute("lecturer", lecturer);
 		
 		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
 		return "updateLecturer";
 	}
 	
@@ -124,7 +143,6 @@ public class AdminController {
 		lecserv.deleteLecturerById(id);
 		
 		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
 		return "redirect:/admin/manage-lecturers";
 	}
 	
@@ -269,9 +287,11 @@ public class AdminController {
 	
 	@PostMapping("/save-course")
 	public String saveCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult) {
+		
 		if (bindingResult.hasErrors()) {
 			return "newupdatecourse";
 		}
+		
 		couserv.saveCourse(course);
 		return "redirect:/admin/manage-course";
 	}
