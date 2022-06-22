@@ -26,7 +26,10 @@ import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.LoginUser;
 import sg.edu.iss.caps.model.Role;
 import sg.edu.iss.caps.model.Student;
+<<<<<<< Updated upstream
 import sg.edu.iss.caps.model.StudentCourse;
+=======
+>>>>>>> Stashed changes
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 import sg.edu.iss.caps.services.StudentCourseService;
@@ -134,8 +137,8 @@ public class AdminController {
 		
 		model.addAttribute("listLecturers", listLecturers);
 		
-		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
 		return "managelecturers";
 	}
 	
@@ -356,55 +359,82 @@ public class AdminController {
 	//
 
 
-
+	//ok
 	@RequestMapping("/manage-students")
 	public String viewStudentPage(Model model) {
 		model.addAttribute("listStudents", studserv.getAllStudents());
 		return "managestudents";
 	}
+	
+	//ok
+	@GetMapping("/add-new-student")
+	public String newStudent(Model model) {
+		Student student = new Student();
+		
+		model.addAttribute("student", student);
+		
+		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+		return "newstudent";
+	}
 
+	//ok
+	  @PostMapping("/save-student")
+	  public String saveStudent(@ModelAttribute("student") Student student) {
+		  studserv.saveStudent(student);
+	  
+	  //redirect: -> sends user to another page (in this case, the home page)
+		  return "redirect:/admin/manage-students"; 
+	  }
+	  
 
-
-	/*
-	 * @PostMapping("/saveStudent") public String
-	 * saveEmployee(@ModelAttribute("student")Student student) {
-	 * studserv.saveStudent(student);
-	 * 
-	 * //redirect: -> sends user to another page (in this case, the home page)
-	 * return "/"; }
-	 * 
-	 * 
-	 * @GetMapping("/updateStudentForm/{id}") public String
-	 * updateStudent(@PathVariable(value = "id") String id, Model model) {
-	 * 
-	 * 
-	 * Student student = studserv.getStudentById(id);
-	 * 
-	 * 
-	 * 
-	 * model.addAttribute("student", student);
-	 * 
-	 * return "updateStudent"; }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @GetMapping("/deleteStudent/{id}") public String
-	 * deleteStudent/(@PathVariable(value = "id") String id, Model model) {
-	 * 
-	 * studserv.deleteStudentById(id);
-	 * 
-	 * return ""; }
-	 * 
-	 * public String searchStudent(@Param("name") String name, Model model) {
-	 * 
-	 * 
-	 * List<Student> listStudents = studserv.returnStudentByName(name);
-	 * 
-	 * 
-	 * model.addAttribute("listStudents", listStudents);
-	 * 
-	 * 
-	 * return "index"; }
-	 */
+	  @GetMapping("/update-student/{id}")
+	  public String updateStudent(@PathVariable(value = "id") String id, Model model) {
+	  
+		  Student student = studserv.getStudentById(id);  
+		  model.addAttribute("student", student);
+		  
+		  return "updatestudent";
+	  }
+	  
+	  
+	  
+	  //ok
+	  @GetMapping("/delete-student/{id}") 
+	  public String deleteStudent (@PathVariable(value = "id") String id, Model model) {
+	  
+		  studserv.deleteStudentById(id);
+	  
+		  return "redirect:/admin/manage-students"; 
+	  }
+	  
+	  public String searchStudent(@Param("name") String name, Model model) {
+	  
+	  
+	  List<Student> listStudents = studserv.returnStudentByName(name);
+	  
+	  
+	  model.addAttribute("listStudents", listStudents);
+	  
+	  
+	  return "index";
+	  }
+	  
+	  
+	  @PostMapping("/search-students")
+		public String searchStudents(@Param("name") String name, Model model) {
+			List<Student> listStudents = studserv.returnStudentByName(name);
+			
+			model.addAttribute("listStudents", listStudents);
+			
+			//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+			//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+			 return "managestudents";
+			//return "index";
+		}
+	  
+	  
+	  
+	 
+	 
 }
