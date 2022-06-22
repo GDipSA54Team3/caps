@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> returnStudentByName(String name) {
-		return null;
+		return studrepo.searchStudentByName(name);
 	}
 
 	@Override

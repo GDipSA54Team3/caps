@@ -7,5 +7,5 @@ import sg.edu.iss.caps.model.StudentCourse;
 
 @Repository
 public interface StudentCourseRepository extends JpaRepository<StudentCourse, String> {
-
+	
 }
