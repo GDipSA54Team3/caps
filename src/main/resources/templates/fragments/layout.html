@@ -62,9 +62,7 @@
 				<div th:case="${T(sg.edu.iss.caps.model.Role).ADMIN}"><!--th:if="${user is admin}"-->
 					<div style="padding-top: 10%;">
 						<a th:href="@{/admin/home}">Admin Home</a>
-						
 						<a th:href="@{/admin/manage-students}">Manage Students</a>
-						
 						<a th:href="@{/admin/manage-lecturers}">Manage Lecturers</a>
 						<a th:href="@{/admin/manage-course}">Manage Courses</a>
 						<a th:href="@{/log/logout}">Logout</a>

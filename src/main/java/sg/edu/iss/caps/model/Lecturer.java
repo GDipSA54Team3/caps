@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -28,18 +30,27 @@ public class Lecturer {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
+	@NotNull
+	@NotEmpty(message = "Username cannot be empty")
 	@Column(nullable = false, length = 50, unique=true)
 	private String username;
 	
+	@NotNull
+	@NotEmpty(message = "Password cannot be empty")
 	@Column(nullable = false, length = 50)
 	private String password;
 	
+	@NotNull
+	@NotEmpty(message = "First Name cannot be empty")
 	@Column(nullable = false, length = 50)
 	private String firstName;
 	
+	@NotNull
+	@NotEmpty(message = "Last name cannot be empty")
 	@Column(nullable = false, length = 50)
 	private String lastName;
 	
+	@NotNull
 	@Column(nullable = false, length = 50, unique=true)
 	private String email;
 	
