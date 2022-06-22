@@ -13,7 +13,8 @@
 	<div class="container inside">
 
 		<h1>My Courses</h1>
-		<p th:text="'Current GPA : '+${gpa}"></p>
+		<p th:if="${!#lists.isEmpty(studentCourses)}" th:text="'Current GPA : '+${#numbers.formatDecimal(gpa,0,2)}"></p>
+		<p th:if="${#lists.isEmpty(studentCourses)}">Current GPA : Not available</p>
 		<table class="table table-striped">
 			<thead>
 				<tr>
