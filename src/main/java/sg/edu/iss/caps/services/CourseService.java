@@ -34,6 +34,6 @@ public interface CourseService {
 	
 //	Llist<Course> testPagination
 	
-	 double getCreditUnit(String courseId);
+	double getCreditUnit(String courseId);
 	
 }

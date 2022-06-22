@@ -103,14 +103,13 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public double getCreditUnit(String courseId) {
 
+	double creditUnit = courepo.getCreditUnit(courseId);
+		return creditUnit;
+	}
+
 	@Override
 	public List<StudentCourse> getStudCoursesByCourseId(String id) {
 		return getCourseById(id).getStudentCourses();
-	}
-
-		double creditUnit = courepo.getCreditUnit(courseId);
-
-		return creditUnit;
 	}
 	
 }
