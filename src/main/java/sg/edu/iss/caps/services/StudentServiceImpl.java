@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> returnStudentByName(String name) {
-		return null;
+		return studrepo.searchStudentByName(name);
 	}
 
 	@Override
@@ -62,10 +62,23 @@ public class StudentServiceImpl implements StudentService {
 		return studrepo.searchStudentByCredentials(username, password);
 	}
 	
+	//get all the students with all course status for a course
 	@Override
 	public List<Student> getStudentByCourse(String courseId){
 		
 		return studrepo.getStudentByCourse(courseId);
 	}
+	
+	 //get the students currently taking the course (course status is ONGOING)
+	@Override
+	public List<Student> getCurrentStudentsByCourse(String courseId){
+		
+		return studrepo.getCurrentStudentsByCourse(courseId);
+	}
 
+	@Override
+	public List<Student> searchCourseStudentByName(String courseId, String name){
+		
+		return studrepo.searchCourseStudentByName(courseId, "%" + name + "%");
+	}
 }

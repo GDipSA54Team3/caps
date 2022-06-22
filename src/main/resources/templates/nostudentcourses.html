@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Application Processing System</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div th:insert="fragments/layout.html:: header"></div>
+	<div th:insert="fragments/layout.html:: sidebar"></div>
+
+	<div class="container inside">
+
+		<h1>Student Records</h1>
+
+	<div>	
+		<p><b>Student  :
+				<span th:text= "${student.firstName} + ' ' + ${student.lastName} ", class="text-danger"></span></b></p>		
+		<p ><b>Current GPA : <span class="text-danger">NA </span></b></p>	
+					
+	<div>		
+	
+		</br>
+		</br>
+		<h2 class="text-danger"><b> The Student has not taken any courses yet </b></h2>	
+		</br>
+		<a th:href="@{/lecturer/search-students}" class="btn btn-primary">Back</a>				
+		
+	</div>
+</body>
+</html>

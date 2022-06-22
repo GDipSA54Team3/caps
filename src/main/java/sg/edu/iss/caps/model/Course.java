@@ -33,6 +33,9 @@ public class Course {
 	private String courseDescription;
 	
 	@Column(nullable = false)
+	private int creditUnit;
+	
+	@Column(nullable = false)
 	private int maxSize;
 	//private Date startDate;
 	//private Date endDate;
@@ -46,11 +49,12 @@ public class Course {
 	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	private List<StudentCourse> studentCourses;
 
-	public Course(String courseName, String courseDescription, int maxSize) {
+	public Course(String courseName, String courseDescription, int maxSize, int creditUnit) {
 		super();
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
 		this.maxSize = maxSize;
+		this.creditUnit = creditUnit;
 	} 
 	
 }

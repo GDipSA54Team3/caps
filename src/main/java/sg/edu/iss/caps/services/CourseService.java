@@ -28,4 +28,7 @@ public interface CourseService {
 	boolean isCapacityOk(String courseId);
 	
 	List<Course> returnCourseByName(String name);
+	
+	 double getCreditUnit(String courseId);
+	
 }

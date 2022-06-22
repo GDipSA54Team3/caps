@@ -98,5 +98,13 @@ public class CourseServiceImpl implements CourseService {
 
 		return clist;
 	}
+	
+	@Override
+	public double getCreditUnit(String courseId) {
 
+		double creditUnit = courepo.getCreditUnit(courseId);
+
+		return creditUnit;
+	}
+	
 }
