@@ -6,6 +6,9 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.*;
 
 @Entity
@@ -34,6 +37,7 @@ public class Student {
 	private String email;
 	
 	@OneToMany(mappedBy="student", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<StudentCourse> studentCourses;
 
 	public Student(String username, String password, String firstName, String lastName, String email) {

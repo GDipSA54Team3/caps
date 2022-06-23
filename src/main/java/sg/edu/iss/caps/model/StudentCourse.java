@@ -7,6 +7,10 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +26,7 @@ public class StudentCourse {
 	private String id;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Student student;
 	
 	@ManyToOne

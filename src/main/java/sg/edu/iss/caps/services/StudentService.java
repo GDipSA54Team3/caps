@@ -3,6 +3,8 @@ package sg.edu.iss.caps.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.model.StudentCourse;
 
@@ -33,4 +35,5 @@ public interface StudentService {
 	
 	List<Student> searchCourseStudentByName(String courseId, String name);			
 
+	Page<Student> findPaginated(int pageNo, int pageSize);
 }

@@ -12,6 +12,9 @@
 	<!-- Bootstrap CSS-->
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<script defer th:src="@{/js/reactfile.js}"></script>
 
 </head>
 
@@ -44,7 +47,7 @@
 			</table>
 		</div>
 		
-			
+		<!--
 		<table class="table table-striped table-form lists">
 			<thead>
 			<tr>
@@ -56,15 +59,11 @@
 			</thead>
 			
 			<tbody>
-			<!--
-			to iterate through a list, use th:each = ""
-			inside the quotes:
-			var_name : ${object_passed_from_controller} <- make sure this is a collection
-			-->
+			
+
+
 			<tr th:each="stud : ${listStudents}">
-			<!--
-			use ${var_name.attribute} to access the attributes of the object
-			-->
+
 			<td th:text="${stud.firstName}"></td>
 			<td th:text="${stud.lastName}"></td>
 			<td th:text="${stud.email}"></td>
@@ -75,6 +74,13 @@
 			
 			</tr>
 			</tbody>
+			</table>
+				-->
+					
+		<div id = "react-table">
+		
+		</div>
+	
 		</div>
 	</body>
 </html>
