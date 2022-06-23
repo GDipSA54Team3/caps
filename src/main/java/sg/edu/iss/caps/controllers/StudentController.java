@@ -47,18 +47,10 @@ public class StudentController {
 	private CalculateGPA cgpa;
 	
 	@Autowired
-<<<<<<< HEAD
-<<<<<<< HEAD
 	private LoginController loginCon;
-=======
-	private RegistrationUtil regUtil;
->>>>>>> c5c852c19f46e3a803cf96ae9eef52926c4a54a5
-=======
-	private RegistrationUtil regUtil;
-	
+
 	@Autowired
-	private LoginController loginCon;
->>>>>>> 5b3cbe6c6f320cb48e01183cedf71857cf77c60c
+	private RegistrationUtil regUtil;
 
 	@GetMapping("/courseList")
 	public String showCourseList(Model model, HttpSession session) {

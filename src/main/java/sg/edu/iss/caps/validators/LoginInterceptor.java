@@ -5,17 +5,13 @@ package sg.edu.iss.caps.validators;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.http.*;
-import javax.websocket.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.FlashMap;
-import org.springframework.web.servlet.FlashMapManager;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import sg.edu.iss.caps.model.ErrorMessage;
 import sg.edu.iss.caps.model.LoginBag;

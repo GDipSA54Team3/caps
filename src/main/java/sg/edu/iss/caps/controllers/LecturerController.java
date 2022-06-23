@@ -1,9 +1,7 @@
 package sg.edu.iss.caps.controllers;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,33 +15,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import sg.edu.iss.caps.model.AppPage;
-=======
-import sg.edu.iss.caps.exceptions.DuplicateException;
->>>>>>> c5c852c19f46e3a803cf96ae9eef52926c4a54a5
-=======
-import sg.edu.iss.caps.exceptions.DuplicateException;
-import sg.edu.iss.caps.model.AppPage;
->>>>>>> 5b3cbe6c6f320cb48e01183cedf71857cf77c60c
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
 import sg.edu.iss.caps.model.ErrorMessage;
 import sg.edu.iss.caps.model.Grade;
-import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.LoginBag;
 import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.model.StudentCourse;
-import sg.edu.iss.caps.repositories.CourseRepository;
 import sg.edu.iss.caps.repositories.StudentCourseRepository;
-import sg.edu.iss.caps.repositories.StudentRepository;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.CalculateGPA;
 import sg.edu.iss.caps.utilities.SortByCourseName;
-import sg.edu.iss.caps.utilities.SortByStudCourseName;
 import sg.edu.iss.caps.utilities.SortByStudentName;
 
 
@@ -51,7 +36,6 @@ import sg.edu.iss.caps.utilities.SortByStudentName;
 @RequestMapping("/lecturer")
 @SessionAttributes("loggeduser")
 public class LecturerController {
-
 
 	@Autowired
 	private CourseService corserv;
@@ -63,23 +47,13 @@ public class LecturerController {
 	private CalculateGPA cgpa;
 	
 	@Autowired
-<<<<<<< HEAD
-<<<<<<< HEAD
 	private LoginController loginCon;
-=======
-=======
->>>>>>> 5b3cbe6c6f320cb48e01183cedf71857cf77c60c
+
+	@Autowired
 	private StudentCourseService studCorServ;
 	
 	@Autowired
 	private StudentCourseRepository studCorRepo;
-	
-<<<<<<< HEAD
->>>>>>> c5c852c19f46e3a803cf96ae9eef52926c4a54a5
-=======
-	@Autowired
-	private LoginController loginCon;
->>>>>>> 5b3cbe6c6f320cb48e01183cedf71857cf77c60c
 
 	//View all courses that a lecturer teach
 	@RequestMapping("/view-courses")

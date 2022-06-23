@@ -3,9 +3,8 @@ package sg.edu.iss.caps.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-import sg.edu.iss.caps.model.*;
+import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.model.StudentCourse;
 
 
 public interface StudentService {
