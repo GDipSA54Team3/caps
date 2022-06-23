@@ -32,6 +32,9 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 	//return student list that has fistName or lastName contains the search string for a particular course
 	@Query("select s from Student s join s.studentCourses sc WHERE sc.course.id = :courseId and"
 			+ " (s.lastName like :name or s.firstName like :name)")
-	   List<Student> searchCourseStudentByName (String courseId, String name);
+	List<Student> searchCourseStudentByName (String courseId, String name);
+
+	@Query("SELECT s.studentCourses FROM Student s WHERE s.id = :id")
+	List<StudentCourse> findStudCoursesByStudId (String id);
 
 }

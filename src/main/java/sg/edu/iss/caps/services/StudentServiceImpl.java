@@ -54,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<StudentCourse> findStudCoursesByStudId(String id) {
-		return getStudentById(id).getStudentCourses();
+		return studrepo.findStudCoursesByStudId(id);
 	}
 	@Override
 	public List<Student> returnStudentByCredentials(String username, String password) {

@@ -18,10 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import sg.edu.iss.caps.model.AppPage;
 =======
 import sg.edu.iss.caps.exceptions.DuplicateException;
 >>>>>>> c5c852c19f46e3a803cf96ae9eef52926c4a54a5
+=======
+import sg.edu.iss.caps.exceptions.DuplicateException;
+import sg.edu.iss.caps.model.AppPage;
+>>>>>>> 5b3cbe6c6f320cb48e01183cedf71857cf77c60c
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
 import sg.edu.iss.caps.model.ErrorMessage;
@@ -59,14 +64,22 @@ public class LecturerController {
 	
 	@Autowired
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private LoginController loginCon;
 =======
+=======
+>>>>>>> 5b3cbe6c6f320cb48e01183cedf71857cf77c60c
 	private StudentCourseService studCorServ;
 	
 	@Autowired
 	private StudentCourseRepository studCorRepo;
 	
+<<<<<<< HEAD
 >>>>>>> c5c852c19f46e3a803cf96ae9eef52926c4a54a5
+=======
+	@Autowired
+	private LoginController loginCon;
+>>>>>>> 5b3cbe6c6f320cb48e01183cedf71857cf77c60c
 
 	//View all courses that a lecturer teach
 	@RequestMapping("/view-courses")
