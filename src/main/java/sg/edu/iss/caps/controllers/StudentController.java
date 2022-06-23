@@ -47,6 +47,9 @@ public class StudentController {
 	
 	@Autowired
 	private RegistrationUtil regUtil;
+	
+	@Autowired
+	private LoginController loginCon;
 
 	@GetMapping("/courseList")
 	public String showCourseList(Model model, HttpSession session) {
@@ -56,6 +59,9 @@ public class StudentController {
 		model.addAttribute("listCourses", courseList);
 		model.addAttribute("student", studServ.getStudentById(user.getLoggeduser().getUserId()));
 		model.addAttribute("studRegisteredCourses", courseServ.findCoursesByStudId(user.getLoggeduser().getUserId()));
+		
+		loginCon.checkCurrentPage(model, AppPage.STUDENT_ENROLL);
+		
 		return "studentcourselist";
 	}
 
@@ -68,6 +74,8 @@ public class StudentController {
 		model.addAttribute("listCourses", courseList);
 		model.addAttribute("student", studServ.getStudentById(user.getLoggeduser().getUserId()));
 		model.addAttribute("studRegisteredCourses", courseServ.findCoursesByStudId(user.getLoggeduser().getUserId()));
+		loginCon.checkCurrentPage(model, AppPage.STUDENT_ENROLL);
+		
 		return "studentcourselist";
 	}
 
@@ -109,6 +117,8 @@ public class StudentController {
 		}else {
 			model.addAttribute("gpa", cgpa.calculateGpa(user.getLoggeduser().getUserId(), studCourseList));
 		}
+		
+		loginCon.checkCurrentPage(model, AppPage.STUDENT_MY_COURSES);
 		return "studentcourses";
 	}
 }

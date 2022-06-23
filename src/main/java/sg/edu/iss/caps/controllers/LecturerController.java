@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.iss.caps.exceptions.DuplicateException;
+import sg.edu.iss.caps.model.AppPage;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
 import sg.edu.iss.caps.model.ErrorMessage;
@@ -59,6 +60,8 @@ public class LecturerController {
 	@Autowired
 	private StudentCourseRepository studCorRepo;
 	
+	@Autowired
+	private LoginController loginCon;
 
 	//View all courses that a lecturer teach
 	@RequestMapping("/view-courses")
@@ -80,6 +83,8 @@ public class LecturerController {
 		
 		//Addcourses to listCourses for display
 		model.addAttribute("listCourses",  courses);
+		
+		loginCon.checkCurrentPage(model, AppPage.LECTURER_VIEW_COURSES);
 																							
 		return "leccourses";		
 	}	
@@ -95,6 +100,7 @@ public class LecturerController {
 			List<Course> courses = corserv.findByLecturerAndCourse(userid, name);		
 			Collections.sort(courses, new SortByCourseName());
 		model.addAttribute("listCourses", courses);
+		loginCon.checkCurrentPage(model, AppPage.LECTURER_VIEW_COURSES);
 		
 		return "leccourses";
 		}
@@ -122,6 +128,8 @@ public class LecturerController {
 		Course curCourse = corserv.getCourseById(courseId);
 		model.addAttribute("curCourse", curCourse);		
 		model.addAttribute("listStudents", students);	
+		
+		loginCon.checkCurrentPage(model, AppPage.LECTURER_STUDENT_PERF);
 			
 		return "viewcoursestudent"; 
 	}
@@ -140,6 +148,8 @@ public class LecturerController {
 			model.addAttribute("curCourse", curCourse);	
 			Collections.sort(students, new SortByStudentName());
 		    model.addAttribute("listStudents", students);
+		    
+			loginCon.checkCurrentPage(model, AppPage.LECTURER_STUDENT_PERF);
 		
 		return "viewcoursestudent";
 		}
@@ -157,19 +167,28 @@ public class LecturerController {
 		double gpa = cgpa.calculateGpa(studentId, studCourseList);		
 		model.addAttribute("studentCourses", studCourseList);
 		 model.addAttribute("gpa", gpa);		  
+		 
+			loginCon.checkCurrentPage(model, AppPage.LECTURER_STUDENT_PERF);
+		 
 		return "viewstudentprofile";
 		}
 		else {			
 			Student student = stuserv.getStudentById(studentId);
 			model.addAttribute("student", student);
 		}
+		
+		loginCon.checkCurrentPage(model, AppPage.LECTURER_STUDENT_PERF);
+		
 		return "nostudentcourses";	
 		
 	}
 	
 	//Search a student to view perfomance
 	@RequestMapping("/search-students")	
-	public String searchAllStudents() {				  
+	public String searchAllStudents(Model model) {				  
+		
+		loginCon.checkCurrentPage(model, AppPage.LECTURER_STUDENT_PERF);
+		
 		return "searchstudents"; 		
 	}
 	
@@ -179,6 +198,9 @@ public class LecturerController {
 		List<Student> students = stuserv.returnStudentByName(name);		
 		Collections.sort(students, new SortByStudentName());
 	    model.addAttribute("listStudents", students);		
+	    
+		loginCon.checkCurrentPage(model, AppPage.LECTURER_STUDENT_PERF);
+	    
 		return "searchstudentresults"; 		
 		
 	}		

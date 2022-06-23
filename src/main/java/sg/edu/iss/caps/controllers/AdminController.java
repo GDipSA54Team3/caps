@@ -135,6 +135,7 @@ public class AdminController {
 		model.addAttribute("lecturer", lecturer);
 		
 		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
 		return "updateLecturer";
 	}
 	
@@ -154,7 +155,7 @@ public class AdminController {
 		model.addAttribute("listLecturers", listLecturers);
 		
 		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
 		return "managelecturers";
 	}
 	
@@ -268,6 +269,8 @@ public class AdminController {
 		List<Course> courseList = couserv.getAllCourse();
 		Collections.sort(courseList, new SortByCourseName());
 		model.addAttribute("listCourse", courseList);
+		
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_COURSES);
 		return "manageCourse";
 	}
 	
@@ -275,6 +278,7 @@ public class AdminController {
 	public String newCourse(Model model, HttpSession session) {
 		Course course = new Course();
 		model.addAttribute("course", course);
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_COURSES);
 		return "newupdatecourse";
 	}
 	
@@ -283,13 +287,15 @@ public class AdminController {
 		List<Course> listCourse = couserv.findCoursesByName(name);
 		Collections.sort(listCourse, new SortByCourseName());
 		model.addAttribute("listCourse", listCourse);
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_COURSES);
 		return "manageCourse";
 	}
 	
 	@PostMapping("/save-course")
-	public String saveCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult) {
+	public String saveCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult, Model model) {
 		
 		if (bindingResult.hasErrors()) {
+			loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_COURSES);
 			return "newupdatecourse";
 		}
 		
@@ -301,6 +307,7 @@ public class AdminController {
 	public String editCourseById(@PathVariable(value = "id") String id, Model model) {
 		Course course = couserv.getCourseById(id);
 		model.addAttribute("course", course);
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_COURSES);
 		return "newupdatecourse";
 	}
 	
@@ -321,6 +328,7 @@ public class AdminController {
 		List<StudentCourse> listStudCourse = couserv.getStudCoursesByCourseId(courseId);
 		model.addAttribute("listStudCourse", listStudCourse);
 		model.addAttribute("course", couserv.getCourseById(courseId));
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_COURSES);
 		return "manageenrollment";
 	}
 	
@@ -385,7 +393,7 @@ public class AdminController {
 		Collections.sort(listStudents, new SortByStudentName());
 		model.addAttribute("listStudents", listStudents);
 	
-	
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_STUDENTS);
 		return "managestudents";
 	}
 	
@@ -398,6 +406,7 @@ public class AdminController {
 		
 		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
 		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_STUDENTS);
 		return "newstudent";
 	}
 
@@ -416,6 +425,7 @@ public class AdminController {
 	public String updateStudent(@PathVariable(value = "id") String id, Model model) {
 		Student student = studserv.getStudentById(id);  
 		model.addAttribute("student", student);
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_STUDENTS);
 		return "updatestudent";
 	}
 	  
@@ -430,11 +440,12 @@ public class AdminController {
 		return "redirect:/admin/manage-students"; 
 	}
 	  
-	public String searchStudent(@Param("name") String name, Model model) {
-		List<Student> listStudents = studserv.returnStudentByName(name);
-		model.addAttribute("listStudents", listStudents);
-		return "index";
-	}
+	
+	/*
+	 * public String searchStudent(@Param("name") String name, Model model) {
+	 * List<Student> listStudents = studserv.returnStudentByName(name);
+	 * model.addAttribute("listStudents", listStudents); return "index"; }
+	 */
 	  
 	  
 	@PostMapping("/search-students")
@@ -443,10 +454,10 @@ public class AdminController {
 			
 		model.addAttribute("listStudents", listStudents);
 			
-		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_STUDENTS);
 		return "managestudents";
-		//return "index";
+
 	}
 	  
 	  
