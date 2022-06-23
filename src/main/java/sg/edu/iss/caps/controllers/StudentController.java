@@ -15,11 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.exceptions.DuplicateException;
-import sg.edu.iss.caps.model.*;
+import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.CourseStatus;
+import sg.edu.iss.caps.model.ErrorMessage;
+import sg.edu.iss.caps.model.Grade;
+import sg.edu.iss.caps.model.LoginBag;
+import sg.edu.iss.caps.model.StudentCourse;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.CalculateGPA;
+import sg.edu.iss.caps.utilities.RegistrationUtil;
 import sg.edu.iss.caps.utilities.SortByCourseName;
 import sg.edu.iss.caps.utilities.SortByStudCourseName;
 
@@ -38,6 +44,9 @@ public class StudentController {
 	
 	@Autowired
 	private CalculateGPA cgpa;
+	
+	@Autowired
+	private RegistrationUtil regUtil;
 
 	@GetMapping("/courseList")
 	public String showCourseList(Model model, HttpSession session) {
@@ -65,11 +74,16 @@ public class StudentController {
 	@GetMapping("/registerCourse/{studentId}/{courseId}")
 	public String regCourse(Model model, @PathVariable("courseId") String courseId, @PathVariable("studentId") String studentId) throws DuplicateException {
 		List<Course> studentRegCourses = courseServ.findCoursesByStudId(studentId);
-		if (!studentRegCourses.contains(courseServ.getCourseById(courseId)) && courseServ.isCapacityOk(courseId)) {
+		if (!studentRegCourses.contains(courseServ.getCourseById(courseId)) && courseServ.isCapacityOk(courseId) && !regUtil.overlaps(studentRegCourses, courseServ.getCourseById(courseId))) {
 			StudentCourse sc = new StudentCourse(studServ.getStudentById(studentId), courseServ.getCourseById(courseId), Grade.NA, CourseStatus.ENROLLED);
 			studCourseServ.newStudentCourse(sc);
-		} else {
-			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\" or course is fully booked \n\n", courseServ.getCourseById(courseId).getCourseName()));
+		} else if (studentRegCourses.contains(courseServ.getCourseById(courseId)) && courseServ.isCapacityOk(courseId)) {
+			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\"\n\n", courseServ.getCourseById(courseId).getCourseName()));
+		} else if (!studentRegCourses.contains(courseServ.getCourseById(courseId)) && !courseServ.isCapacityOk(courseId)) {
+			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Course \"%s\" is fully booked\n\n", courseServ.getCourseById(courseId).getCourseName()));
+		} else if (regUtil.overlaps(studentRegCourses, courseServ.getCourseById(courseId))) {
+			model.addAttribute("courseName", courseServ.getCourseById(courseId).getCourseName());
+			return "erroroverlap";
 		}
 		return "redirect:/student/courseList";
 	}
@@ -80,6 +94,16 @@ public class StudentController {
 		List<StudentCourse> studCourseList = studServ.findStudCoursesByStudId(user.getLoggeduser().getUserId());
 		Collections.sort(studCourseList, new SortByStudCourseName());
 		model.addAttribute("studentCourses", studCourseList);
+		
+		
+		//check if coming from other account
+		if (session.getAttribute("errorMsg") != null) {
+			ErrorMessage errorMsg = (ErrorMessage) session.getAttribute("errorMsg");
+			model.addAttribute("LoginError", errorMsg);
+			session.removeAttribute("errorMsg");
+		}
+		
+		
 		if (studCourseList.isEmpty()) {
 			model.addAttribute("gpa", "Not available");
 		}else {
