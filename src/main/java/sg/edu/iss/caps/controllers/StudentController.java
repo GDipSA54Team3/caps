@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.iss.caps.exceptions.DuplicateException;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseStatus;
+import sg.edu.iss.caps.model.ErrorMessage;
 import sg.edu.iss.caps.model.Grade;
 import sg.edu.iss.caps.model.LoginBag;
 import sg.edu.iss.caps.model.StudentCourse;
