@@ -93,6 +93,16 @@ public class StudentController {
 		List<StudentCourse> studCourseList = studServ.findStudCoursesByStudId(user.getLoggeduser().getUserId());
 		Collections.sort(studCourseList, new SortByStudCourseName());
 		model.addAttribute("studentCourses", studCourseList);
+		
+		
+		//check if coming from other account
+		if (session.getAttribute("errorMsg") != null) {
+			ErrorMessage errorMsg = (ErrorMessage) session.getAttribute("errorMsg");
+			model.addAttribute("LoginError", errorMsg);
+			session.removeAttribute("errorMsg");
+		}
+		
+		
 		if (studCourseList.isEmpty()) {
 			model.addAttribute("gpa", "Not available");
 		}else {

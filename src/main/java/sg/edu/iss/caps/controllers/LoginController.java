@@ -40,6 +40,7 @@ public class LoginController {
 			
 			String[] errmsg = {"Please enter a valid username or password."};
 			ErrorMessage errorMsg = new ErrorMessage(errmsg);
+			System.out.println(errorMsg);
 			model.addAttribute("LoginError", errorMsg);
 			return "home";
 		}
@@ -103,6 +104,7 @@ public class LoginController {
 		
 		String[] errmsg = {"Please enter a valid username or password."};
 		ErrorMessage errorMsg = new ErrorMessage(errmsg);
+		System.out.println(errorMsg);
 		model.addAttribute("LoginError", errorMsg);
 		return "home";
 	}
