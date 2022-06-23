@@ -23,10 +23,19 @@
 	
 		</br>
 		</br>
-		<h2 class="text-danger"><b> The Student has not taken any courses yet </b></h2>	
+		<h3 class="text-danger"><b> This Student has not taken any courses yet </b></h3>	
 		</br>
-		<a th:href="@{/lecturer/search-students}" class="btn btn-primary">Back</a>				
-		
-	</div>
+			<a type="button" class="btn btn-primary" th:href="@{/lecturer/search-students}"> Find Another Student</a>	
+		</div>
 </body>
 </html>
+
+<script>
+function GoBackWithRefresh(event) {
+    if ('referrer' in document) {
+        window.location = document.referrer;
+    } else {
+        window.history.back();
+    }
+}
+</script>

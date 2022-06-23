@@ -39,5 +39,13 @@ public class StudentCourseServiceImpl implements StudentCourseService {
 		}
 		return studentCourse;
 	}
-
+	
+	@Override
+	public StudentCourse getStudentCourseByStudentAndCourse(String studentId, String courseId) {
+		
+		StudentCourse studentCourse = studCourseRepo.getStudentCourseByStudentAndCourse (studentId, courseId);
+				
+		return studentCourse;
+	}
+		
 }

@@ -19,7 +19,7 @@ public class CalculateGPA {
 			double creditUnit = studCor.getCourse().getCreditUnit();
 			double gradePoint = 0;
 			switch (studCor.getGrade()) {
-			case A:
+			case A: 
 				gradePoint = 5;
 				break;
 			case B:

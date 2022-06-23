@@ -15,6 +15,7 @@
 		<h1>Student Perfomance</h1>
 
 	<div>	
+	
 		<p><b>Student  :
 				<span th:text= "${studentCourses[0].student.firstName} + ' ' + ${studentCourses[0].student.lastName} ", class="text-danger"></span></b></p>		
 		<p><b>Current GPA :
@@ -38,14 +39,22 @@
 					<td th:text="${studCourse.courseStatus}"></td>
 					<td th:text="${studCourse.grade}"></td>
 					<!-- <td th:text="${course.startDate}"></td>
-					<td th:text="${course.endDate}"></td> -->
-	
+					<td th:text="${course.endDate}"></td> -->	
 				</tr>
 			</tbody>
 		</table>
 		</br>
-		<a th:href="@{/lecturer/search-students}" class="btn btn-primary">Back</a>	
-		
+	<a type="button" class="btn btn-primary" th:href="@{/lecturer/search-students}"> Find Another Student</a>			
 	</div>
 </body>
 </html>
+
+<script>
+function GoBackWithRefresh(event) {
+    if ('referrer' in document) {
+        window.location = document.referrer;
+    } else {
+        window.history.back();
+    }
+}
+</script>

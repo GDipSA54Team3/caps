@@ -112,7 +112,7 @@ public class AppInitializator {
 	    	LOGGER.info(String.format("\n-----------Updatating student_course table-----------"));
 	    	for (Student student : studentList ) {	    		
 	    		for (Course course : courseList ) {
-	    			StudentCourse studCour = new StudentCourse (student, course, Grade.B, CourseStatus.COMPLETED); 
+	    			StudentCourse studCour = new StudentCourse (student, course, Grade.NA, CourseStatus.ENROLLED); 
 	    			screpo.save(studCour);	  	    		
 	    		}
 	    	}	    	

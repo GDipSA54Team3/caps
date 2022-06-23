@@ -25,7 +25,7 @@
 	<div class="container inside">
 		<div th:fragment="lecturer-banner" id="lecturer-banner">
 		
-			<h1>View My Courses</h1>
+			<h1>My Courses</h1>
 		</div>
 		<div style="margin-bottom: 3%;">
 			<table width="100%">
@@ -73,7 +73,8 @@
 				<td th:text="${cor.courseDescription}"></td>
 				<td th:text="${cor.maxSize}"></td>
 				<td class="table-action">
-					<a th:href="@{/lecturer/view-course-student-list/{id}(id=${cor.id})}" class="btn btn-primary">View Student List</a>					
+					<a th:href="@{/lecturer/view-course-student-list/{id}(id=${cor.id})}" class="btn btn-primary">View Entrollments</a>	
+					<a th:href="@{/lecturer/assign-grade/{id}(id=${cor.id})}" class="btn btn-danger">Assign Grades</a>									
 				</td>
 			</tr>
 		</tbody>

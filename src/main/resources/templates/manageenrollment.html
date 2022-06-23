@@ -15,6 +15,7 @@
 	<div class="container inside">
 		<div th:insert="fragments/layout.html:: admin-banner"></div>
 		<div style="margin-bottom: 3%;">
+			<button class = "btn btn-link" onclick="window.history.back()">< Go Back</button>
 			<h1 th:text="'Manage Enrollment For '+${course.courseName}"></h1>
 			<span th:utext = "${course.courseDescription}"></span>
 			<table width="100%">
@@ -94,7 +95,7 @@
 				</tr>
 			</tbody>
 		</table>
-	
+	<button class = "btn btn-link" onclick="window.history.back()">< Go Back</button>
 	</div>
 
 </body>
