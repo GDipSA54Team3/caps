@@ -1,7 +1,9 @@
 package sg.edu.iss.caps.controllers;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,20 +11,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import sg.edu.iss.caps.exceptions.DuplicateException;
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.CourseStatus;
 import sg.edu.iss.caps.model.Grade;
 import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.LoginBag;
 import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.model.StudentCourse;
 import sg.edu.iss.caps.repositories.CourseRepository;
+import sg.edu.iss.caps.repositories.StudentCourseRepository;
 import sg.edu.iss.caps.repositories.StudentRepository;
 import sg.edu.iss.caps.services.CourseService;
+import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.CalculateGPA;
 import sg.edu.iss.caps.utilities.SortByCourseName;
@@ -45,11 +52,17 @@ public class LecturerController {
 	@Autowired
 	private CalculateGPA cgpa;
 	
+	@Autowired
+	private StudentCourseService studCorServ;
+	
+	@Autowired
+	private StudentCourseRepository studCorRepo;
+	
 
 	//View all courses that a lecturer teach
 	@RequestMapping("/view-courses")
 	public String viewLecCourses(
-			Model model, HttpSession session	) {
+			Model model, HttpSession session) {
 		
 		String userId  = getCurrentUserId(session);
 		
@@ -159,6 +172,38 @@ public class LecturerController {
 	    model.addAttribute("listStudents", students);		
 		return "searchstudentresults"; 		
 		
-	}	
+	}		
+	
+		@GetMapping("/assign-grade/{courseId}")
+		public String assignGrades(@PathVariable(value = "courseId") String courseId, Model model, HttpSession session) {			
+		
+		Course course = corserv.getCourseById(courseId);
+		List<Student> currStudents = stuserv.getCurrentStudentsByCourse(courseId);		
+		
+		model.addAttribute("course", course);
+		model.addAttribute("listStudents", currStudents);
+	
+		return "assigngrade";
+	}
+				
+		@PostMapping("/save-grades/{courseId}")		
+		public String assignGrades(@PathVariable(value = "courseId") String courseId, 
+				@Param("selectedGrade") String selectedGrade,	@Param("selectedStudent")  String selectedStudent, 
+				Model model) {
+			
+			StudentCourse studentCourse = studCorServ.getStudentCourseByStudentAndCourse(selectedStudent, courseId);			
+			Grade grade = Grade.valueOf(selectedGrade);			
+			studentCourse.setGrade((grade));			
+			//if the student passed
+			if (grade !=Grade.F) {
+			studentCourse.setCourseStatus(CourseStatus.COMPLETED);
+			}
+			//if the student failed
+			else {
+				studentCourse.setCourseStatus(CourseStatus.FAILED);
+			}			
+			studCorRepo.save(studentCourse);			
+		return "redirect:/lecturer/assign-grade/"+courseId;
+	}
 
 }

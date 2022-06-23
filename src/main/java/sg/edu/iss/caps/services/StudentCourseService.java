@@ -9,5 +9,7 @@ public interface StudentCourseService {
 	void removeStudentCourseById(String id);
 	
 	StudentCourse getStudentCourseById(String id);
+	
+	StudentCourse getStudentCourseByStudentAndCourse(String studentId, String CourseId);
 
 }
