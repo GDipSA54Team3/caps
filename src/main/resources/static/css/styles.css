@@ -170,5 +170,5 @@ h1 {
 
 .current-page {
 	background-color: var(--main-color);
-	color: var(--accent-color);
+	color: white;
 }
