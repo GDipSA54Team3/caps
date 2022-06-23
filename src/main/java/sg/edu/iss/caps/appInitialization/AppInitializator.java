@@ -1,6 +1,8 @@
 package sg.edu.iss.caps.appInitialization;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +20,7 @@ import sg.edu.iss.caps.repositories.CourseRepository;
 import sg.edu.iss.caps.repositories.LecturerRepository;
 import sg.edu.iss.caps.repositories.StudentCourseRepository;
 import sg.edu.iss.caps.repositories.StudentRepository;
+import sg.edu.iss.caps.utilities.StringToDateConversion;
 
 @Component
 public class AppInitializator {
@@ -37,6 +40,10 @@ public class AppInitializator {
 	    
 	    @Autowired
 	    private StudentRepository srepo;
+	    
+	    @Autowired
+	    StringToDateConversion dateConv;
+	    
 	    private static final Logger LOGGER = Logger.getLogger(AppInitializator.class.getName());
 	   	        	    
 	    @PostConstruct
@@ -54,25 +61,30 @@ public class AppInitializator {
 	    	ArrayList<Lecturer> lecturerList  = new ArrayList<Lecturer>();
 	    	ArrayList<Student> studentList  = new ArrayList<Student>();
 	    	
+	    	//start date and end date for courses
+	    	Date startDate = dateConv.StringToDate("2022-08-30");
+	    	Date endDate = dateConv.StringToDate("2022-12-30");
+	    	
 	    	Lecturer lecturer1 = new Lecturer ("achong", "password", "Alan", "Chong", "alan.chong@everbright.edu.sg");		   	
 	    	Course course1 = new Course ("Neural Networks and Deep Learning", "A neural network is a network or circuit of biological neurons, or, "
 	    			+ "in a modern sense, an artificial neural network, composed of artificial neurons or nodes."
 	    			+ " Thus, a neural network is either a biological neural network, made up of biological neurons, or an artificial neural network, "
-	    			+ "used for solving artificial intelligence (AI) problems.", 5, 5);
+	    			+ "used for solving artificial intelligence (AI) problems.", 5, 5, startDate, endDate);
 	  
 	    	Lecturer lecturer2 = new Lecturer ("clong", "password", "TianHai", "Long", "tianhai.long@everbright.edu.sg");		   	
 	    	Course course2 = new Course ("Internet of Things", "The Internet of Things (IoT) describes physical objects (or groups of such objects) with sensors, "
 	    			+ "processing ability, software, and other technologies that connect and exchange data with other devices "
 	    			+ "and systems over the Internet or other communications networks. Internet of things has been "
 	    			+ "considered a misnomer because devices do not need to be connected to the public internet, they only "
-	    			+ "need to be connected to a network and be individually addressable.", 5, 5);
+	    			+ "need to be connected to a network and be individually addressable.", 5, 5, startDate, endDate);
 	    	
-	    	Lecturer lecturer3 = new Lecturer ("tsbeng", "password", "SweeBeng", "Toh", "sweebeng.toh@everbright.edu.sg");		   	
+	    		
+	    	Lecturer lecturer3 = new Lecturer ("tsbeng", "password", "SweeBeng", "Toh", "sweebeng.toh@everbright.edu.sg");	       	    	
 	    	Course course3 = new Course ("Data Mining", "Data mining is the process of extracting and discovering patterns in large data sets"
 	    			+ " involving methods at the intersection of machine learning, statistics, and database systems. Data mining is "
 	    			+ "an interdisciplinary subfield of computer science and statistics with an overall goal of extracting information "
 	    			+ "(with intelligent methods) from a data set and transforming the information into a comprehensible structure"
-	    			+ " for further use.", 5, 5);
+	    			+ " for further use.", 5, 5, startDate, endDate);
 	    	
 	    	courseList.add(course1); courseList.add(course2); courseList.add(course3);
 	    	lecturerList.add(lecturer1); lecturerList.add(lecturer2); 	lecturerList.add(lecturer3);

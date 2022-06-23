@@ -55,6 +55,8 @@
 				<th>Course</th>
 				<th>Description</th>
 				<th>Capacity</th>
+				<th>Start Date</th>
+				<th>End Date</th>
 				<th>Actions</th>
 				</tr>
 		</thead>
@@ -72,6 +74,8 @@
 				<td><p class="text-primary"><b> <span th:text="${cor.courseName}"></b></p></td>
 				<td th:text="${cor.courseDescription}"></td>
 				<td th:text="${cor.maxSize}"></td>
+				<td th:text="${#dates.format(cor.startDate, 'dd-MM-yyyy')}"></td>
+				<td th:text="${#dates.format(cor.endDate, 'dd-MM-yyyy')}"></td>
 				<td class="table-action">
 					<a th:href="@{/lecturer/view-course-student-list/{id}(id=${cor.id})}" class="btn btn-primary">View Entrollments</a>	
 					<a th:href="@{/lecturer/assign-grade/{id}(id=${cor.id})}" class="btn btn-danger">Assign Grades</a>									
