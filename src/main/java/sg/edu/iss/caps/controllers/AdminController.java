@@ -29,7 +29,7 @@ import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.EmailEditor;
 import sg.edu.iss.caps.utilities.SortByCourseName;
-import sg.edu.iss.caps.utilities.SortByLecturerName;
+//import sg.edu.iss.caps.utilities.SortByLecturerName;
 import sg.edu.iss.caps.utilities.SortByStudentName;
 
 
@@ -68,10 +68,16 @@ public class AdminController {
 	 */
 	
 	@RequestMapping("/home")
-	public String openHomePage (Model model) {
+	public String openHomePage (Model model, HttpSession sess) {
 		model.addAttribute("lecCount", lecserv.getAllLecturers().size());
 		model.addAttribute("courseCount", couserv.getAllCourse().size());
 		model.addAttribute("studCount", studserv.getAllStudents().size());
+		
+		if (sess.getAttribute("errorMsg") != null) {
+			ErrorMessage errorMsg = (ErrorMessage) sess.getAttribute("errorMsg");
+			model.addAttribute("LoginError", errorMsg);
+			sess.removeAttribute("errorMsg");
+		}
 		
 		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
 		loginCon.checkCurrentPage(model, AppPage.ADMIN_HOME);
@@ -85,11 +91,11 @@ public class AdminController {
 	@RequestMapping("/manage-lecturers")
 	public String viewManageLecturers(Model model) {
 		List<Lecturer> listLecturers = lecserv.getAllLecturers();
-		Collections.sort(listLecturers, new SortByLecturerName());
+		//Collections.sort(listLecturers, new SortByLecturerName());
 		model.addAttribute("listLecturers", listLecturers);
 	
-		//loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
-		//loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
+		loginCon.setAdminRole(model, new LoginUser(Role.ADMIN));
+		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_LECTURERS);
 		return "managelecturers";
 	}
 	
@@ -105,13 +111,12 @@ public class AdminController {
 	}
 	
 	@PostMapping("/save-lecturer")
-	public String saveLecturer(@Valid @ModelAttribute("lecturer") Lecturer lecturer, BindingResult result, 
+	public String saveLecturer(@ModelAttribute("lecturer") @Valid Lecturer lecturer, BindingResult result, 
 			Model model, HttpServletRequest request){
 		
 		if (result.hasErrors()) {
-			System.out.println("error thrown");
 			String referer = request.getHeader("Referer");
-			model.addAttribute("error", "nullval");
+			System.out.println(referer);
 		    return "redirect:" + referer;
 		}
 		

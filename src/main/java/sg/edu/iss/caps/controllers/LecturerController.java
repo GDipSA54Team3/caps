@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.iss.caps.exceptions.DuplicateException;
 import sg.edu.iss.caps.model.Course;
+<<<<<<< HEAD
 import sg.edu.iss.caps.model.CourseStatus;
+=======
+import sg.edu.iss.caps.model.ErrorMessage;
+>>>>>>> fc3442052bfb92bdf0e43d1f0c081ab3ce45e5fc
 import sg.edu.iss.caps.model.Grade;
 import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.LoginBag;
@@ -69,6 +73,14 @@ public class LecturerController {
 		//To get the courses of currently logged in lecturer
 		List<Course> courses = corserv.getCoursesByLecturerId(userId);
 		Collections.sort(courses, new SortByCourseName());
+		
+		//check if coming from other account
+		if (session.getAttribute("errorMsg") != null) {
+			ErrorMessage errorMsg = (ErrorMessage) session.getAttribute("errorMsg");
+			model.addAttribute("LoginError", errorMsg);
+			session.removeAttribute("errorMsg");
+		}
+		
 		//Addcourses to listCourses for display
 		model.addAttribute("listCourses",  courses);
 																							

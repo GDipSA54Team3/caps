@@ -53,6 +53,10 @@
 				<div th:case="${T(sg.edu.iss.caps.model.Role).LECTURER}"><!--th:if="${user is lecturer}"-->
 					<div style="padding-top: 10%;">
 						<a  th:href="@{/lecturer/view-courses}">View My Courses</a>
+<<<<<<< HEAD
+=======
+						<!--<a href="#">Perform Grading</a>-->
+>>>>>>> fc3442052bfb92bdf0e43d1f0c081ab3ce45e5fc
 						<a th:href="@{/lecturer/search-students}">Student Performance</a>
 						<a th:href="@{/log/logout}">Logout</a>
 					</div>
@@ -77,9 +81,10 @@
 							<button type = "submit" class = "btn btn-primary">Login</button>
 						</form>
 					</div>
-					<div th:if="${LoginError != null}" class="alert alert-danger" style=" margin: 10px;">
-						<span style="font-size:0.9rem; word-wrap:normal;" th:utext="${LoginError.message[0]}"></span>
-					</div>
+				</div>
+				
+				<div th:if="${LoginError != null}" class="alert alert-danger" style=" margin: 10px;">
+					<span style="font-size:0.9rem; word-wrap:normal;" th:utext="${LoginError.message[0]}"></span>
 				</div>
 
 		</div>

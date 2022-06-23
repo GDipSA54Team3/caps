@@ -23,6 +23,11 @@ public class HomeController{
 			session.invalidate();
 		}
 		
+		if (session.getAttribute("loggeduser") != null) {
+			//LoginUser Curruser = (LoginUser) session.getAttribute("loggeduser");
+			//System.out.println(Curruser.getRole());
+		}
+
 		LoginUser user = new LoginUser("", "", Role.TO_LOGIN);
 		LoginBag lb = new LoginBag(user);
 		
