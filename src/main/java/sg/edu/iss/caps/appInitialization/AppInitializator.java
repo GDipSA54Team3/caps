@@ -69,14 +69,14 @@ public class AppInitializator {
 	    	Course course1 = new Course ("Neural Networks and Deep Learning", "A neural network is a network or circuit of biological neurons, or, "
 	    			+ "in a modern sense, an artificial neural network, composed of artificial neurons or nodes."
 	    			+ " Thus, a neural network is either a biological neural network, made up of biological neurons, or an artificial neural network, "
-	    			+ "used for solving artificial intelligence (AI) problems.", 5, 5, startDate, endDate);
+	    			+ "used for solving artificial intelligence (AI) problems.", 15, 5, startDate, endDate);
 	  
 	    	Lecturer lecturer2 = new Lecturer ("clong", "password", "TianHai", "Long", "tianhai.long@everbright.edu.sg");		   	
 	    	Course course2 = new Course ("Internet of Things", "The Internet of Things (IoT) describes physical objects (or groups of such objects) with sensors, "
 	    			+ "processing ability, software, and other technologies that connect and exchange data with other devices "
 	    			+ "and systems over the Internet or other communications networks. Internet of things has been "
 	    			+ "considered a misnomer because devices do not need to be connected to the public internet, they only "
-	    			+ "need to be connected to a network and be individually addressable.", 5, 5, startDate, endDate);
+	    			+ "need to be connected to a network and be individually addressable.", 15, 5, startDate, endDate);
 	    	
 	    		
 	    	Lecturer lecturer3 = new Lecturer ("tsbeng", "password", "SweeBeng", "Toh", "sweebeng.toh@everbright.edu.sg");	       	    	
@@ -84,7 +84,7 @@ public class AppInitializator {
 	    			+ " involving methods at the intersection of machine learning, statistics, and database systems. Data mining is "
 	    			+ "an interdisciplinary subfield of computer science and statistics with an overall goal of extracting information "
 	    			+ "(with intelligent methods) from a data set and transforming the information into a comprehensible structure"
-	    			+ " for further use.", 5, 5, startDate, endDate);
+	    			+ " for further use.", 15, 5, startDate, endDate);
 	    	
 	    	courseList.add(course1); courseList.add(course2); courseList.add(course3);
 	    	lecturerList.add(lecturer1); lecturerList.add(lecturer2); 	lecturerList.add(lecturer3);
