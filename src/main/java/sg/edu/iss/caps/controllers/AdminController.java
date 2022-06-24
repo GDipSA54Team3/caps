@@ -14,10 +14,7 @@ import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 import sg.edu.iss.caps.services.StudentCourseService;
 import sg.edu.iss.caps.services.StudentService;
-import sg.edu.iss.caps.utilities.EmailEditor;
-import sg.edu.iss.caps.utilities.RegistrationUtil;
-import sg.edu.iss.caps.utilities.SortByCourseName;
-import sg.edu.iss.caps.utilities.SortByStudentName;
+import sg.edu.iss.caps.utilities.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -326,6 +323,7 @@ public class AdminController {
 		model.addAttribute("listStudent", listStudent);
 		model.addAttribute("listExistStudent", studserv.getStudentByCourse(courseId));
 		List<StudentCourse> listStudCourse = couserv.getStudCoursesByCourseId(courseId);
+		listStudCourse.sort(new SortByStudCourseStudName());
 		model.addAttribute("listStudCourse", listStudCourse);
 		model.addAttribute("course", couserv.getCourseById(courseId));
 		loginCon.checkCurrentPage(model, AppPage.ADMIN_MANAGE_COURSES);
@@ -368,6 +366,31 @@ public class AdminController {
 		}
 		return "redirect:/admin/view-student-courses/"+courseId;
 	}
+
+	@GetMapping("/status-enrolled/{courseId}/{studCourId}")
+	public String ChangeStatusEnrolled(@PathVariable("studCourId") String studCourId, @PathVariable("courseId") String courseId){
+		StudentCourse sc = studCourseServ.getStudentCourseById(studCourId);
+		sc.setCourseStatus(CourseStatus.ENROLLED);
+		screpo.saveAndFlush(sc);
+		return "redirect:/admin/view-student-courses/"+courseId;
+	}
+
+	@GetMapping("/status-completed/{courseId}/{studCourId}")
+	public String ChangeStatusCompleted(@PathVariable("studCourId") String studCourId, @PathVariable("courseId") String courseId){
+		StudentCourse sc = studCourseServ.getStudentCourseById(studCourId);
+		sc.setCourseStatus(CourseStatus.COMPLETED);
+		screpo.saveAndFlush(sc);
+		return "redirect:/admin/view-student-courses/"+courseId;
+	}
+
+	@GetMapping("/status-failed/{courseId}/{studCourId}")
+	public String ChangeStatusFailed(@PathVariable("studCourId") String studCourId, @PathVariable("courseId") String courseId){
+		StudentCourse sc = studCourseServ.getStudentCourseById(studCourId);
+		sc.setCourseStatus(CourseStatus.FAILED);
+		screpo.saveAndFlush(sc);
+		return "redirect:/admin/view-student-courses/"+courseId;
+	}
+
 	
 //	@PostMapping("/search-enrollstudent")
 //	public String searchEnrollStudent(@Param("courseId") String courseId, @Param("name") String name, Model model) {

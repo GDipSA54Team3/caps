@@ -65,7 +65,7 @@
             </div>
 
             <button type="button" class="btn btn-primary btn-block mb-3 col-2" data-toggle="modal"
-                    data-target="#statusModalCenter">Update Status
+                    data-target="#statusModalCenter">Update Status for All
             </button>
 
             <!-- Modal -->
@@ -75,7 +75,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="statusModalCenterTitle">Update Course Status</h5>
+                            <h5 class="modal-title" id="statusModalCenterTitle">Update Course Status for all</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -125,8 +125,10 @@
             <td th:text="${student.student.email}"></td>
             <td th:text="${student.courseStatus}"></td>
             <td class="table-action">
-                <a th:href="@{/admin/deleteEnrollment/}+${course.id}+@{/}+${student.id}"
-                   class="btn btn-danger">Remove</a>
+                <a th:href="@{/admin/status-enrolled/}+${course.id}+@{/}+${student.id}" class="btn btn-primary">Status Enrolled</a>
+                <a th:href="@{/admin/status-completed/}+${course.id}+@{/}+${student.id}" class="btn btn-primary">Status Completed</a>
+                <a th:href="@{/admin/status-failed/}+${course.id}+@{/}+${student.id}" class="btn btn-primary">Status Failed</a>
+                <a th:href="@{/admin/deleteEnrollment/}+${course.id}+@{/}+${student.id}" class="btn btn-danger">Remove</a>
             </td>
         </tr>
         </tbody>
