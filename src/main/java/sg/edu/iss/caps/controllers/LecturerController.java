@@ -208,7 +208,8 @@ public class LecturerController {
 	
 		return "assigngrade";
 	}
-				
+		
+		//saving the assigned grades
 		@PostMapping("/save-grades/{courseId}")		
 		public String assignGrades(@PathVariable(value = "courseId") String courseId, 
 				@Param("selectedGrade") String selectedGrade,	@Param("selectedStudent")  String selectedStudent, 
