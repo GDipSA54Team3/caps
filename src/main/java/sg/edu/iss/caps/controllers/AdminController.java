@@ -1,37 +1,15 @@
 package sg.edu.iss.caps.controllers;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import sg.edu.iss.caps.exceptions.DuplicateException;
-import sg.edu.iss.caps.model.AppPage;
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseStatus;
-import sg.edu.iss.caps.model.ErrorMessage;
-import sg.edu.iss.caps.model.Grade;
-import sg.edu.iss.caps.model.Lecturer;
-import sg.edu.iss.caps.model.LoginUser;
-import sg.edu.iss.caps.model.Role;
-import sg.edu.iss.caps.model.Student;
-import sg.edu.iss.caps.model.StudentCourse;
+import sg.edu.iss.caps.model.*;
+import sg.edu.iss.caps.repositories.StudentCourseRepository;
 import sg.edu.iss.caps.services.CourseService;
 import sg.edu.iss.caps.services.LecturerService;
 import sg.edu.iss.caps.services.StudentCourseService;
@@ -39,8 +17,14 @@ import sg.edu.iss.caps.services.StudentService;
 import sg.edu.iss.caps.utilities.EmailEditor;
 import sg.edu.iss.caps.utilities.RegistrationUtil;
 import sg.edu.iss.caps.utilities.SortByCourseName;
-//import sg.edu.iss.caps.utilities.SortByLecturerName;
 import sg.edu.iss.caps.utilities.SortByStudentName;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -74,6 +58,9 @@ public class AdminController {
 
 	@Autowired
 	private RegistrationUtil regUtil;
+
+	@Autowired
+	private StudentCourseRepository screpo;
 	
 	
 	/*
@@ -354,6 +341,30 @@ public class AdminController {
 		} else {
 			model.addAttribute("courseName", couserv.getCourseById(courseId).getCourseName());
 			return "erroroverlap";
+		}
+		return "redirect:/admin/view-student-courses/"+courseId;
+	}
+
+	@PostMapping("/update-status")
+	public String UpdateStatus(@Param("courseStatus") String courseStatus, @Param("courseId") String courseId) {
+		if (courseStatus.equals("ENROLLED")){
+			List<StudentCourse> list = couserv.getStudCoursesByCourseId(courseId);
+			for (StudentCourse sc : list){
+				sc.setCourseStatus(CourseStatus.ENROLLED);
+				screpo.saveAndFlush(sc);
+			}
+		}else if (courseStatus.equals("COMPLETED")){
+			List<StudentCourse> list = couserv.getStudCoursesByCourseId(courseId);
+			for (StudentCourse sc : list){
+				sc.setCourseStatus(CourseStatus.COMPLETED);
+				screpo.saveAndFlush(sc);
+			}
+		}else if (courseStatus.equals("FAILED")){
+			List<StudentCourse> list = couserv.getStudCoursesByCourseId(courseId);
+			for (StudentCourse sc : list){
+				sc.setCourseStatus(CourseStatus.FAILED);
+				screpo.saveAndFlush(sc);
+			}
 		}
 		return "redirect:/admin/view-student-courses/"+courseId;
 	}
