@@ -90,7 +90,9 @@ public class StudentController {
 			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Student is already enrolled in \"%s\"\n\n", courseServ.getCourseById(courseId).getCourseName()));
 		} else if (!studentRegCourses.contains(courseServ.getCourseById(courseId)) && !courseServ.isCapacityOk(courseId)) {
 			throw new DuplicateException(String.format("\n\n\n ErrorRegistrationFailed: Course \"%s\" is fully booked\n\n", courseServ.getCourseById(courseId).getCourseName()));
-		} else if (regUtil.overlaps(studentRegCourses, courseServ.getCourseById(courseId))) {
+		} 
+		// if the course that the student is trying to register overlaps with another course, the controller will redirect to the error page
+		else if (regUtil.overlaps(studentRegCourses, courseServ.getCourseById(courseId))) {
 			model.addAttribute("courseName", courseServ.getCourseById(courseId).getCourseName());
 			return "erroroverlap";
 		}

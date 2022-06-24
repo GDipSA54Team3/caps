@@ -46,6 +46,7 @@
 					<td th:text="${course.creditUnit}"></td>
 					<td th:text="${#dates.format(course.startDate, 'dd-MM-yyyy')}"></td>
 					<td th:text="${#dates.format(course.endDate, 'dd-MM-yyyy')}"></td>
+					<!-- Thymeleaf will check if the course that the student is trying to register is already registered previously -->
 					<td th:if="${!#lists.contains(studRegisteredCourses, course)} and ${#lists.size(course.studentCourses)} < ${course.maxSize}">
 						<button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal" data-target="#registerModalCenter">Register</button>
 						<!-- Modal -->
@@ -69,8 +70,9 @@
 							</div>
 						</div>
 					</td>
-					<!-- <td th:if="${!#lists.contains(studRegisteredCourses, course)} and ${#lists.size(course.studentCourses)} < ${course.maxSize}"><a class="btn btn-primary btn-block mb-3" th:href="@{/student/registerCourse/}+${student.id}+@{/}+${course.id}">Register</a></td> -->
+					<!-- If the course is already registered, Thymeleaf will a non-clickable button saying "Enrolled" -->
 					<td th:if="${#lists.contains(studRegisteredCourses, course)}"><a class="btn btn-primary btn-block mb-3 disabled">Enrolled</a></td>
+					<!-- If the course is not yet registered but the capacity is fulled, Thymeleaf will show a non-clickable button saying "Full" -->
 					<td th:if="${!#lists.contains(studRegisteredCourses, course)} and ${#lists.size(course.studentCourses)} == ${course.maxSize}"><a class="btn btn-primary btn-block mb-3 disabled">Full</a></td>
 				</tr>
 			</tbody>
